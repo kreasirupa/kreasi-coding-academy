@@ -1,0 +1,337 @@
+{
+  "platform": "Kreasi Coding Academy",
+  "umbrellaBrand": "Kreasi Rupa",
+  "currency": "IDR",
+  "defaultThemePrice": 150000,
+  "whatsappAdmin": "6281234567890",
+  "vipChannelUrl": "https://whatsapp.com/channel/0029VaKreasiCodingVIP",
+  "tracks": [
+    {
+      "trackId": "vibebiz",
+      "trackCode": "TRACK 1",
+      "trackName": "VibeBiz (Solusi UMKM & Bisnis Digital)",
+      "badgeColor": "amber",
+      "icon": "store",
+      "description": "Bangun aplikasi kasir (POS) dan sistem pesanan mandiri terintegrasi Google Sheets & WhatsApp tanpa biaya langganan bulanan.",
+      "themes": [
+        {
+          "id": "vibebiz-pos",
+          "title": "Sistem POS Kasir Web + Google Apps Script",
+          "subtitle": "Aplikasi kasir modern dengan keranjang real-time, database Google Sheets, dan cetak struk termal.",
+          "price": 150000,
+          "level": "Pemula • UMKM",
+          "starterKitUrl": "https://docs.google.com/spreadsheets/create",
+          "modules": [
+            {
+              "moduleId": "pos-m1",
+              "number": 1,
+              "title": "UI Kasir Interaktif (Tailwind CSS)",
+              "isFree": true,
+              "duration": "22 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "index.html (UI Kasir Tailwind)",
+              "codeSnippet": "<!-- Modul 1 [FREE TRIAL]: Kerangka UI Kasir Interaktif -->\n<div class=\"grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 bg-slate-900 text-white rounded-2xl\">\n  <!-- Katalog Produk -->\n  <div class=\"lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4\" id=\"product-grid\">\n    <button onclick=\"addToCart('Kopi Susu Gula Aren', 18000)\" class=\"p-4 rounded-xl bg-slate-800 hover:border-blue-500 border border-slate-700 text-left\">\n      <div class=\"font-bold\">Kopi Susu Gula Aren</div>\n      <div class=\"text-amber-400 font-extrabold mt-1\">Rp 18.000</div>\n    </button>\n  </div>\n  <!-- Panel Struk Kasir -->\n  <div class=\"p-5 rounded-xl bg-slate-950 border border-slate-800\">\n    <h3 class=\"font-bold text-lg mb-3\">Keranjang Transaksi</h3>\n    <div id=\"cart-items\" class=\"space-y-2 text-sm\"></div>\n    <button onclick=\"checkoutPOS()\" class=\"mt-4 w-full py-3 rounded-xl bg-blue-600 font-bold\">Simpan & Cetak Struk</button>\n  </div>\n</div>",
+              "aiPrompt": "Bertindaklah sebagai Senior UI/UX Developer. Buatkan satu file HTML dengan Tailwind CSS untuk aplikasi POS Kasir UMKM Kedai Kopi. Gunakan tema Dark Navy (#0F172A), tombol produk interaktif yang otomatis menghitung subtotal, PPN opsional, kembalian uang tunai, dan tombol Checkout.",
+              "steps": [
+                "Salin prompt AI di tab sebelah ke Gemini untuk men-generate tampilan katalog produk usaha Anda.",
+                "Sesuaikan daftar menu dan harga satuan di dalam array JavaScript.",
+                "Uji coba fungsi tambah keranjang dan kalkulasi kembalian langsung di browser."
+              ]
+            },
+            {
+              "moduleId": "pos-m2",
+              "number": 2,
+              "title": "Database Kasir di Google Sheets via Apps Script",
+              "isFree": false,
+              "duration": "28 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "Code.gs (Google Apps Script Webhook)",
+              "codeSnippet": "// Modul 2 [PREMIUM]: Simpan Transaksi Kasir ke Google Sheets\nfunction doPost(e) {\n  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Transaksi');\n  const data = JSON.parse(e.postData.contents);\n  \n  sheet.appendRow([\n    new Date(),\n    data.invoiceId,\n    data.namaKasir,\n    JSON.stringify(data.items),\n    data.totalBayar,\n    data.metodePembayaran\n  ]);\n  \n  return ContentService.createTextOutput(JSON.stringify({\n    status: 'success',\n    message: 'Transaksi berhasil disimpan ke Google Sheets!'\n  })).setMimeType(ContentService.MimeType.JSON);\n}",
+              "aiPrompt": "Buatkan script Google Apps Script (doPost) yang menerima payload JSON dari Web Kasir dan menyimpannya ke sheet 'Transaksi' lengkap dengan timestamp otomatis dan nomor invoice unik.",
+              "steps": [
+                "Buka Google Sheets baru dan beri nama tab 'Transaksi'.",
+                "Klik menu Extensions > Apps Script, lalu tempelkan kode Code.gs di atas.",
+                "Klik Deploy > New Deployment > Web App (Who has access: Anyone) dan salin URL Web App ke aplikasi kasir."
+              ]
+            },
+            {
+              "moduleId": "pos-m3",
+              "number": 3,
+              "title": "Otomasi Cetak Struk & Laporan Penjualan",
+              "isFree": false,
+              "duration": "25 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "thermal-print.js (Cetak Struk 58mm & Rekap)",
+              "codeSnippet": "// Modul 3 [PREMIUM]: Cetak Struk Thermal 58mm & Rekap Harian\nfunction printThermalReceipt(order) {\n  const printWindow = window.open('', '_blank', 'width=320,height=500');\n  printWindow.document.write(`\n    <html><body style=\"font-family:monospace;width:58mm;font-size:12px;\">\n      <center><b>KREASI KOPI NUSANTARA</b><br/>Nota: ${order.invoiceId}</center>\n      <hr/>\n      ${order.items.map(i => `<div>${i.qty}x ${i.name} - Rp ${i.price * i.qty}</div>`).join('')}\n      <hr/>\n      <b>TOTAL: Rp ${order.totalBayar.toLocaleString('id-ID')}</b>\n    </body></html>\n  `);\n  printWindow.document.close();\n  printWindow.print();\n}",
+              "aiPrompt": "Buatkan fungsi JavaScript untuk memformat data keranjang kasir menjadi layout struk printer thermal ukuran 58mm yang otomatis memanggil dialog cetak browser.",
+              "steps": [
+                "Hubungkan tombol 'Cetak Struk' dengan fungsi printThermalReceipt().",
+                "Aktifkan trigger harian di Google Apps Script untuk mengirim rekap omzet PDF ke email pemilik toko."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vibebiz-order",
+          "title": "Web Order Mandiri (Self-Order Menu)",
+          "subtitle": "Katalog menu digital QR meja yang meneruskan pesanan pelanggan langsung ke WhatsApp kasir.",
+          "price": 150000,
+          "level": "Pemula • Kuliner & Retail",
+          "starterKitUrl": "https://docs.google.com/spreadsheets/create",
+          "modules": [
+            {
+              "moduleId": "order-m1",
+              "number": 1,
+              "title": "Katalis Menu & Keranjang Belanja Digital",
+              "isFree": true,
+              "duration": "19 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "menu-katalog.html",
+              "codeSnippet": "<!-- Modul 1 [FREE TRIAL]: Katalog Menu Digital Mobile-First -->\n<div class=\"max-w-md mx-auto bg-slate-900 p-4 rounded-3xl border border-slate-800\">\n  <div class=\"flex items-center justify-between mb-4\">\n    <h3 class=\"font-extrabold text-white\">Menu Meja #04</h3>\n    <span class=\"px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold\" id=\"badge-total\">0 Item</span>\n  </div>\n  <!-- Card Makanan -->\n  <div class=\"p-3 rounded-2xl bg-slate-800/80 flex items-center justify-between\">\n    <div>\n      <div class=\"font-bold text-white text-sm\">Nasi Goreng Spesial AI</div>\n      <div class=\"text-xs text-amber-400 font-bold\">Rp 25.000</div>\n    </div>\n    <button class=\"px-3 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold\">+ Tambah</button>\n  </div>\n</div>",
+              "aiPrompt": "Buatkan halaman Web Self-Order Menu bergaya aplikasi pesan makanan mobile-first dengan fitur filter kategori (Makanan, Minuman, Camilan) dan floating bottom bar total harga.",
+              "steps": [
+                "Rancang tampilan menu ramah smartphone menggunakan kelas max-w-md mx-auto di Tailwind.",
+                "Tambahkan input nomor meja atau alamat pengiriman pelanggan."
+              ]
+            },
+            {
+              "moduleId": "order-m2",
+              "number": 2,
+              "title": "Kirim Pesanan Otomatis ke WhatsApp Kasir",
+              "isFree": false,
+              "duration": "24 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "wa-checkout.js",
+              "codeSnippet": "// Modul 2 [PREMIUM]: Format Pesanan Otomatis ke WhatsApp Kasir & Google Sheets\nfunction sendOrderToWhatsApp(nomorKasir, namaPelanggan, nomorMeja, items, total) {\n  let pesan = `*PESANAN BARU - MEJA ${nomorMeja}*\\nPemesan: ${namaPelanggan}\\n------------------\\n`;\n  items.forEach(item => {\n    pesan += `• ${item.qty}x ${item.nama} (Rp ${(item.harga * item.qty).toLocaleString('id-ID')})\\n`;\n  });\n  pesan += `------------------\\n*TOTAL: Rp ${total.toLocaleString('id-ID')}*`;\n  \n  const waUrl = `https://wa.me/${nomorKasir}?text=${encodeURIComponent(pesan)}`;\n  window.open(waUrl, '_blank');\n}",
+              "aiPrompt": "Buatkan script checkout yang merangkum daftar pesanan keranjang belanja menjadi pesan WhatsApp rapi lengkap dengan rincian item, catatan pedas/manis, dan total pembayaran.",
+              "steps": [
+                "Ganti variabel nomorKasir dengan nomor WhatsApp admin toko dalam format 628xxx.",
+                "Cetak QR Code URL halaman Netlify Anda dan tempelkan di meja pelanggan."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "trackId": "vibecareer",
+      "trackCode": "TRACK 2",
+      "trackName": "VibeCareer (Persiapan Karir & Portofolio)",
+      "badgeColor": "electric",
+      "icon": "briefcase",
+      "description": "Tingkatkan daya saing karirmu dengan website portofolio interaktif dan aplikasi pembuat CV otomatis siap kirim ke HRD.",
+      "themes": [
+        {
+          "id": "vibecareer-portfolio",
+          "title": "Web Portofolio Interaktif & Responsive",
+          "subtitle": "Tampilkan karya terbaikmu dalam website personal modern yang online 24 jam di Netlify.",
+          "price": 150000,
+          "level": "Mahasiswa • Career Switcher",
+          "starterKitUrl": "https://app.netlify.com/drop",
+          "modules": [
+            {
+              "moduleId": "port-m1",
+              "number": 1,
+              "title": "Layouting Hero & Project Showcase",
+              "isFree": true,
+              "duration": "20 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "portfolio-hero.html",
+              "codeSnippet": "<!-- Modul 1 [FREE TRIAL]: Hero Section & Showcase Portofolio -->\n<section class=\"py-12 px-6 bg-slate-900 text-white rounded-3xl border border-slate-800\">\n  <span class=\"text-xs font-bold uppercase tracking-widest text-sky-400\">Available for Hire</span>\n  <h1 class=\"text-3xl sm:text-5xl font-extrabold mt-2\">Halo, Saya <span class=\"text-amber-400\">Raka Pratama</span></h1>\n  <p class=\"text-slate-400 mt-3 max-w-xl\">Digital Marketer & AI Automation Enthusiast yang membantu bisnis tumbuh lewat inovasi web.</p>\n  <div class=\"mt-6 flex gap-3\">\n    <a href=\"#projects\" class=\"px-5 py-2.5 rounded-xl bg-blue-600 font-bold text-sm\">Lihat Project</a>\n    <a href=\"https://wa.me/628123456\" class=\"px-5 py-2.5 rounded-xl bg-slate-800 font-semibold text-sm\">Hubungi Saya</a>\n  </div>\n</section>",
+              "aiPrompt": "Buatkan Landing Page Portofolio Profesional menggunakan Tailwind CSS dengan Hero Section, Statistik Pencapaian, Galeri Studi Kasus Project, dan tombol kontak WhatsApp/LinkedIn.",
+              "steps": [
+                "Masukkan profil singkat, keahlian utama, dan 3 studi kasus project terbaikmu.",
+                "Pastikan tampilan responsif di layar HP maupun desktop."
+              ]
+            },
+            {
+              "moduleId": "port-m2",
+              "number": 2,
+              "title": "Custom Domain & Hosting Gratis di Netlify",
+              "isFree": false,
+              "duration": "18 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "netlify.toml (Konfigurasi Hosting & Form)",
+              "codeSnippet": "# Modul 2 [PREMIUM]: Konfigurasi netlify.toml & Custom Domain\n[build]\n  publish = \".\"\n\n[[redirects]]\n  from = \"/*\"\n  to = \"/index.html\"\n  status = 200\n\n[[headers]]\n  for = \"/*\"\n  [headers.values]\n    X-Frame-Options = \"DENY\"\n    X-XSS-Protection = \"1; mode=block\"",
+              "aiPrompt": "Buatkan konfigurasi file netlify.toml untuk Single Page Application beserta form kontak HTML yang menggunakan atribut data-netlify=\"true\" agar pesan HRD langsung masuk ke email.",
+              "steps": [
+                "Unggah folder portofolio ke Netlify Drop.",
+                "Hubungkan custom domain (.com / .my.id) melalui pengaturan DNS Netlify dan aktifkan SSL HTTPS gratis."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vibecareer-cv",
+          "title": "Generator CV & Surat Lamaran Otomatis",
+          "subtitle": "Aplikasi pembuat CV ATS-Friendly instan dari form input ke dokumen PDF siap kirim.",
+          "price": 150000,
+          "level": "Fresh Graduate • Pencari Kerja",
+          "starterKitUrl": "https://docs.google.com/document/create",
+          "modules": [
+            {
+              "moduleId": "cv-m1",
+              "number": 1,
+              "title": "Form Input Data Diri & Pengalaman",
+              "isFree": true,
+              "duration": "21 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "cv-builder-form.html",
+              "codeSnippet": "<!-- Modul 1 [FREE TRIAL]: Form Live Preview Generator CV -->\n<div class=\"grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-900 p-6 rounded-2xl text-white\">\n  <div class=\"space-y-3\">\n    <input id=\"in-nama\" oninput=\"syncCV()\" placeholder=\"Nama Lengkap & Gelar\" class=\"w-full p-3 rounded-xl bg-slate-950 border border-slate-700\" />\n    <textarea id=\"in-ringkasan\" oninput=\"syncCV()\" placeholder=\"Ringkasan Profesional...\" class=\"w-full p-3 rounded-xl bg-slate-950 border border-slate-700\"></textarea>\n  </div>\n  <div class=\"p-6 rounded-xl bg-white text-slate-900\">\n    <h2 id=\"out-nama\" class=\"text-2xl font-extrabold\">Nama Lengkap Anda</h2>\n    <p id=\"out-ringkasan\" class=\"text-sm text-slate-600 mt-2\">Ringkasan profesional akan tampil secara real-time di sini...</p>\n  </div>\n</div>",
+              "aiPrompt": "Buatkan aplikasi Web CV Builder dengan dua kolom: kolom kiri berisi form input data diri, pengalaman kerja, dan skill; kolom kanan menampilkan live preview CV ATS-friendly secara real-time.",
+              "steps": [
+                "Gunakan event oninput untuk menghubungkan setiap kolom form dengan elemen preview CV.",
+                "Tambahkan tombol AI Polish untuk merapikan kalimat deskripsi pengalaman kerja."
+              ]
+            },
+            {
+              "moduleId": "cv-m2",
+              "number": 2,
+              "title": "Export Hasil CV ke PDF Ready-to-Send",
+              "isFree": false,
+              "duration": "26 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "export-cv-pdf.gs",
+              "codeSnippet": "// Modul 2 [PREMIUM]: Generate PDF CV dari Template Google Docs via Apps Script\nfunction generateCVPdf(formData) {\n  const templateId = 'ID_GOOGLE_DOCS_TEMPLATE_ANDA';\n  const copyFile = DriveApp.getFileById(templateId).makeCopy('CV_' + formData.nama);\n  const doc = DocumentApp.openById(copyFile.getId());\n  const body = doc.getBody();\n  \n  body.replaceText('{{NAMA_LENGKAP}}', formData.nama);\n  body.replaceText('{{POSISI}}', formData.posisi);\n  body.replaceText('{{PENGALAMAN}}', formData.pengalaman);\n  doc.saveAndClose();\n  \n  const pdfBlob = copyFile.getAs(MimeType.PDF);\n  const pdfFile = DriveApp.createFile(pdfBlob);\n  pdfFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);\n  return pdfFile.getDownloadUrl();\n}",
+              "aiPrompt": "Buatkan script Google Apps Script yang mengganti placeholder {{NAMA}}, {{SKILL}}, dan {{PENGALAMAN}} pada template Google Docs lalu mengonversinya menjadi file PDF dan mengembalikan link downloadnya.",
+              "steps": [
+                "Siapkan template CV rapi di Google Docs dengan tag kurung kurawal ganda {{...}}.",
+                "Hubungkan form web dengan Web App URL Apps Script untuk menghasilkan PDF sekali klik."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "trackId": "vibeadmin",
+      "trackCode": "TRACK 3",
+      "trackName": "VibeAdmin (Otomasi Administrasi & Sekolah)",
+      "badgeColor": "emerald",
+      "icon": "building-2",
+      "description": "Otomatisasi pekerjaan administrasi kantor, sekolah, dan kepanitiaan event: mulai dari absensi QR Code, blast E-Ticket email, hingga E-Rapor grafik.",
+      "themes": [
+        {
+          "id": "vibeadmin-qr",
+          "title": "Sistem Absensi QR Code",
+          "subtitle": "Buat kartu QR siswa/karyawan dan rekap kehadiran real-time menggunakan kamera HP/laptop ke Google Sheets.",
+          "price": 150000,
+          "level": "Staf Admin • Guru & HR",
+          "starterKitUrl": "https://docs.google.com/spreadsheets/create",
+          "modules": [
+            {
+              "moduleId": "qr-m1",
+              "number": 1,
+              "title": "Generator QR Code Siswa/Karyawan",
+              "isFree": true,
+              "duration": "17 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "qr-generator.html",
+              "codeSnippet": "<!-- Modul 1 [FREE TRIAL]: Generator Kartu ID & QR Code Otomatis -->\n<div class=\"p-6 bg-slate-900 rounded-2xl text-center space-y-4 max-w-sm mx-auto text-white border border-slate-800\">\n  <input id=\"nik-input\" value=\"KCA-2026-089\" class=\"w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-center font-mono\" />\n  <img id=\"qr-img\" src=\"https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=KCA-2026-089\" class=\"mx-auto rounded-xl border-4 border-white\" alt=\"QR Code\" />\n  <button onclick=\"updateQR()\" class=\"w-full py-2.5 rounded-xl bg-blue-600 font-bold text-sm\">Buat QR Code</button>\n</div>",
+              "aiPrompt": "Buatkan aplikasi Web Generator Kartu Absensi QR Code untuk siswa/karyawan yang menampilkan foto, nama, nomor induk, dan gambar QR Code siap cetak.",
+              "steps": [
+                "Masukkan Nomor Induk Siswa (NIS) atau Nomor Induk Karyawan (NIK) sebagai payload unik QR.",
+                "Cetak kartu ID secara massal dari daftar nama menggunakan loop JavaScript."
+              ]
+            },
+            {
+              "moduleId": "qr-m2",
+              "number": 2,
+              "title": "Scanner Kamera & Input Timestamp ke Google Sheets",
+              "isFree": false,
+              "duration": "30 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "qr-scanner-sheets.js",
+              "codeSnippet": "// Modul 2 [PREMIUM]: Integrasi html5-qrcode Scanner & Kirim ke Google Sheets\nfunction onScanSuccess(decodedText) {\n  fetch('URL_WEB_APP_GOOGLE_APPS_SCRIPT_ANDA', {\n    method: 'POST',\n    body: JSON.stringify({\n      idPeserta: decodedText,\n      waktuHadir: new Date().toLocaleString('id-ID'),\n      status: 'HADIR TEPAT WAKTU'\n    })\n  })\n  .then(res => res.json())\n  .then(data => alert('Absensi Berhasil: ' + decodedText));\n}",
+              "aiPrompt": "Integrasikan library html5-qrcode pada halaman web untuk memindai QR Code lewat kamera HP lalu mengirim ID yang terpindai ke Google Sheets via fetch POST beserta bunyi beep sukses.",
+              "steps": [
+                "Sematkan library html5-qrcode melalui CDN di bagian head HTML.",
+                "Pasang validasi di Apps Script agar siswa/karyawan yang sama tidak tercatat dua kali di hari yang sama."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vibeadmin-event",
+          "title": "Web Pendaftaran Event & E-Ticket",
+          "subtitle": "Landing page registrasi seminar/workshop yang otomatis mengirim E-Ticket QR Code ke email pendaftar.",
+          "price": 150000,
+          "level": "Panitia Event • Organisasi",
+          "starterKitUrl": "https://docs.google.com/spreadsheets/create",
+          "modules": [
+            {
+              "moduleId": "event-m1",
+              "number": 1,
+              "title": "Landing Page Registrasi Event",
+              "isFree": true,
+              "duration": "19 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "event-landing.html",
+              "codeSnippet": "<!-- Modul 1 [FREE TRIAL]: Form Registrasi Event & Countdown -->\n<form class=\"p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-4 max-w-md mx-auto text-white\">\n  <span class=\"px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold\">Kuota Terbatas: Sisa 25 Kursi</span>\n  <h3 class=\"text-xl font-extrabold\">Daftar Workshop Vibecoding AI 2026</h3>\n  <input type=\"text\" placeholder=\"Nama Lengkap Peserta\" required class=\"w-full p-3 rounded-xl bg-slate-950 border border-slate-700\" />\n  <input type=\"email\" placeholder=\"Alamat Email Aktif (Untuk E-Ticket)\" required class=\"w-full p-3 rounded-xl bg-slate-950 border border-slate-700\" />\n  <button class=\"w-full py-3 rounded-xl bg-amber-500 text-slate-950 font-extrabold\">Amankan Tiket Sekarang</button>\n</form>",
+              "aiPrompt": "Buatkan Landing Page Pendaftaran Seminar & Workshop lengkap dengan hitung mundur waktu acara, profil pembicara, dan formulir registrasi responsif.",
+              "steps": [
+                "Siapkan form input Nama, Email, Instansi, dan Nomor WhatsApp.",
+                "Tampilkan indikator loading saat peserta menekan tombol daftar."
+              ]
+            },
+            {
+              "moduleId": "event-m2",
+              "number": 2,
+              "title": "Blast E-Ticket QR Otomatis ke Email Pendaftar",
+              "isFree": false,
+              "duration": "27 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "blast-eticket.gs",
+              "codeSnippet": "// Modul 2 [PREMIUM]: Kirim Email HTML + E-Ticket QR Otomatis via MailApp\nfunction sendEventTicket(nama, email, kodeTiket) {\n  const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(kodeTiket);\n  const htmlBody = `\n    <div style=\"font-family:sans-serif;padding:24px;background:#0F172A;color:#fff;border-radius:16px;\">\n      <h2 style=\"color:#F59E0B;\">E-Ticket Resmi Workshop Kreasi Rupa</h2>\n      <p>Halo <b>${nama}</b>, pendaftaranmu telah terkonfirmasi!</p>\n      <img src=\"${qrUrl}\" alt=\"QR Ticket\" style=\"border:6px solid #fff;border-radius:12px;\" />\n      <p>Kode Tiket: <b>${kodeTiket}</b></p>\n    </div>\n  `;\n  MailApp.sendEmail({\n    to: email,\n    subject: '[E-TICKET] Konfirmasi Pendaftaran - ' + kodeTiket,\n    htmlBody: htmlBody\n  });\n}",
+              "aiPrompt": "Buatkan fungsi Google Apps Script menggunakan MailApp.sendEmail yang mengirimkan email berdesain HTML gelap modern berisi gambar QR Code tiket unik setiap kali baris baru masuk di Google Sheets.",
+              "steps": [
+                "Uji pengiriman email menggunakan akun Gmail Anda melalui Apps Script.",
+                "Gunakan QR Scanner dari Sub-tema 1 untuk memvalidasi tiket peserta di pintu masuk gedung acara."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vibeadmin-rapor",
+          "title": "E-Rapor & Dasbor Penilaian Interaktif",
+          "subtitle": "Sistem rekap nilai otomatis dengan predikat kelulusan dan visualisasi grafik perkembangan.",
+          "price": 150000,
+          "level": "Guru • Dosen & Akademik",
+          "starterKitUrl": "https://docs.google.com/spreadsheets/create",
+          "modules": [
+            {
+              "moduleId": "rapor-m1",
+              "number": 1,
+              "title": "Kalkulasi Nilai & Rata-rata Otomatis",
+              "isFree": true,
+              "duration": "20 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "kalkulator-rapor.js",
+              "codeSnippet": "// Modul 1 [FREE TRIAL]: Kalkulasi Bobot Nilai & Predikat Otomatis\nfunction hitungNilaiAkhir(tugas, uts, uas) {\n  const nilaiAkhir = (tugas * 0.3) + (uts * 0.3) + (uas * 0.4);\n  let predikat = 'C';\n  if (nilaiAkhir >= 85) predikat = 'A (Sangat Baik)';\n  else if (nilaiAkhir >= 75) predikat = 'B (Baik)';\n  \n  return {\n    skor: nilaiAkhir.toFixed(1),\n    predikat: predikat,\n    lulus: nilaiAkhir >= 70\n  };\n}",
+              "aiPrompt": "Buatkan tabel input nilai siswa interaktif dengan perhitungan otomatis nilai akhir (30% Tugas, 30% UTS, 40% UAS), penentuan predikat A/B/C, dan badge status Lulus/Remedial.",
+              "steps": [
+                "Atur bobot persentase komponen penilaian sesuai kurikulum sekolah/kampus.",
+                "Tambahkan fitur pencarian nama siswa dan filter per kelas."
+              ]
+            },
+            {
+              "moduleId": "rapor-m2",
+              "number": 2,
+              "title": "Dasbor Visualisasi Grafik Nilai",
+              "isFree": false,
+              "duration": "25 Menit",
+              "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              "filename": "dashboard-chart.js",
+              "codeSnippet": "// Modul 2 [PREMIUM]: Render Grafik Distribusi Nilai dari API Google Sheets\nasync function loadRaporDashboard(sheetApiUrl) {\n  const res = await fetch(sheetApiUrl);\n  const students = await res.json();\n  \n  const rataKelas = students.reduce((acc, s) => acc + Number(s.nilaiAkhir), 0) / students.length;\n  document.getElementById('stat-rata-kelas').textContent = rataKelas.toFixed(1);\n  // Render visual bar chart per mata pelajaran\n}",
+              "aiPrompt": "Buatkan dasbor analitik E-Rapor menggunakan Tailwind CSS dan Chart.js yang mengambil data JSON dari Google Sheets lalu menampilkan grafik batang rata-rata nilai per mata pelajaran serta top 5 siswa berprestasi.",
+              "steps": [
+                "Hubungkan endpoint doGet() Google Apps Script sebagai sumber data JSON real-time.",
+                "Tambahkan tombol Cetak Lembar E-Rapor per siswa untuk dibagikan kepada orang tua."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
