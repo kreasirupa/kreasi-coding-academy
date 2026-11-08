@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kreasi Coding Academy | Belajar Vibecoding AI & Google Apps Script — by Kreasi Rupa</title>
+  <meta name="description" content="Platform media pembelajaran interaktif berbasis Vibecoding (AI + Google Apps Script) untuk Pemula, UMKM, Staf Admin, dan Mahasiswa. Wujudkan Web App tanpa pusing sintaks!" />
+  
+  <!-- Google Fonts: Plus Jakarta Sans, Nunito (Logo Rounded Font) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Nunito:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            navy: {
+              950: '#090D16',
+              900: '#0F172A',
+              800: '#1E293B',
+              700: '#334155',
+            },
+            electric: {
+              400: '#60A5FA',
+              500: '#3B82F6',
+              600: '#2563EB',
+              700: '#1D4ED8',
+            },
+            amber: {
+              400: '#FBBF24',
+              500: '#F59E0B',
+              600: '#D97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0F172A;
+      color: #F8FAFC;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Clean Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0F172A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .surface-card {
+      background-color: #1E293B;
+      border: 1px solid #334155;
+    }
+    .surface-subtle {
+      background-color: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(51, 65, 85, 0.7);
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #certificate-print-area, #certificate-print-area * {
+        visibility: visible;
+      }
+      #certificate-print-area {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #0F172A !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-electric-600 selection:text-white">
+
+  <!-- CLEAN STICKY NAVBAR -->
+  <header class="sticky top-0 z-40 bg-navy-900/95 backdrop-blur border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <!-- Brand Identity (New Kreasi Coding Academy Logo) -->
+      <button onclick="app.navigate('home')" class="flex items-center gap-3 text-left focus:outline-none group">
+        <div class="flex items-center gap-2.5">
+          <!-- New K + Graduation Cap + </> Vector Logo -->
+          <svg viewBox="0 0 140 145" class="w-10 h-10 shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="kBlueLeft" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0080FF" />
+                <stop offset="100%" stop-color="#0051FF" />
+              </linearGradient>
+              <linearGradient id="kBlueRight" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#00A6FF" />
+                <stop offset="100%" stop-color="#0066FF" />
+              </linearGradient>
+              <linearGradient id="kYellowArm" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FFCC00" />
+                <stop offset="100%" stop-color="#F59E0B" />
+              </linearGradient>
+              <linearGradient id="kOrangeRedArm" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FF7A00" />
+                <stop offset="100%" stop-color="#F03B2F" />
+              </linearGradient>
+            </defs>
+
+            <!-- Golden Tassel -->
+            <path d="M21 48V62" stroke="#F7B500" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="21" cy="64" r="5.5" fill="#F7B500"/>
+            <path d="M16.5 68H25.5L29 85C29.4 87 27.9 89 25.8 89H16.2C14.1 89 12.6 87 13 85L16.5 68Z" fill="#F7B500"/>
+
+            <!-- Vertical Stem of K (Two-Tone Blue with Bottom Round & Chevron Cutout) -->
+            <path d="M34 62L52 71V135C42 135 34 127 34 117V62Z" fill="url(#kBlueLeft)"/>
+            <path d="M52 71L66 61V77L50 95L66 113V117C66 127 59.5 135 52 135V71Z" fill="url(#kBlueRight)"/>
+
+            <!-- Graduation Cap (Navy with crisp rim & slot detail) -->
+            <path d="M31 51V58C31 58 43 66 54 66C65 66 79 54 79 46V41L54 55L31 51Z" fill="#071D49" stroke="#93C5FD" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M9 41L55 15L101 33L54 57L9 41Z" fill="#071D49" stroke="#93C5FD" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M28 49L54 36" stroke="#F8FAFC" stroke-width="4.2" stroke-linecap="round"/>
+
+            <!-- K Right Chevron - Lower Arm (Orange to Coral Red) -->
+            <path d="M58 95L86 95L121 131C122.5 132.5 121.5 135 119.2 135H93C91.2 135 89.5 134.2 88.3 132.9L58 100C55.5 97.3 55.5 95 58 95Z" fill="url(#kOrangeRedArm)"/>
+
+            <!-- K Right Chevron - Upper Arm (Yellow to Amber) -->
+            <path d="M58 100C55.2 97.2 55.2 92.8 58 90L96.5 50.5C97.7 49.2 99.4 48.5 101.2 48.5H124.5C126.8 48.5 127.9 51.2 126.3 52.8L86 95L67 107L58 100Z" fill="url(#kYellowArm)"/>
+
+            <!-- Code Symbol </> inside K Notch -->
+            <path d="M104 84L93 95L104 106" stroke="#F8FAFC" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M116 80L108 110" stroke="#F8FAFC" stroke-width="6" stroke-linecap="round"/>
+            <path d="M121 84L132 95L121 106" stroke="#F8FAFC" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <!-- Brand Wordmark: KREASI CODING ACADEMY -->
+          <div class="leading-none">
+            <div style="font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;" class="font-black text-xl sm:text-2xl tracking-wide text-white group-hover:text-electric-400 transition-colors">
+              KREASI
+            </div>
+            <div class="text-[9px] sm:text-[10px] font-bold tracking-[0.24em] text-slate-300 mt-0.5">
+              CODING ACADEMY
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1">
+        <button onclick="app.navigate('home')" data-nav="home" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium transition-colors">
+          Beranda
+        </button>
+        <button onclick="app.navigate('courses')" data-nav="courses" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium transition-colors">
+          Katalog Modul
+        </button>
+        <button onclick="app.navigate('workspace')" data-nav="workspace" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium transition-colors">
+          Ruang Belajar
+        </button>
+        <button onclick="app.navigate('dashboard')" data-nav="dashboard" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+          <span>Dashboard</span>
+          <span id="nav-progress-badge" class="text-[11px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">0%</span>
+        </button>
+        <button onclick="app.navigate('netlify')" data-nav="netlify" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium transition-colors">
+          Deploy & JSON
+        </button>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="hidden sm:flex items-center gap-2.5">
+        <button onclick="app.openPricingModal()" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-navy-950 transition-colors">
+          Akses Premium
+        </button>
+      </div>
+
+      <!-- Mobile Menu Trigger -->
+      <button onclick="app.toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-navy-900 border-b border-slate-800 px-4 py-3 space-y-1">
+      <button onclick="app.navigate('home'); app.toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">
+        Beranda
+      </button>
+      <button onclick="app.navigate('courses'); app.toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800 flex items-center justify-between">
+        <span>Katalog Modul (3 Track)</span>
+        <span class="text-xs text-slate-400">7 Tema</span>
+      </button>
+      <button onclick="app.navigate('workspace'); app.toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">
+        Ruang Belajar
+      </button>
+      <button onclick="app.navigate('dashboard'); app.toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800 flex items-center justify-between">
+        <span>Dashboard & Sertifikat</span>
+        <span id="mobile-progress-badge" class="text-xs font-mono text-slate-400">0%</span>
+      </button>
+      <button onclick="app.navigate('netlify'); app.toggleMobileMenu()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">
+        Struktur File & Panduan Netlify
+      </button>
+      <div class="pt-2">
+        <button onclick="app.openPricingModal(); app.toggleMobileMenu()" class="w-full py-2.5 rounded-lg text-xs font-semibold bg-amber-500 text-navy-950">
+          Info Akses Premium (Rp 150.000 / Tema)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: BERANDA (CLEAN & FOCUSED)          -->
+    <!-- ========================================== -->
+    <section id="view-home" class="view-section">
+      <!-- HERO SECTION -->
+      <div class="border-b border-slate-800 py-14 sm:py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="max-w-3xl space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-electric-400"></span>
+              <span>Ekosistem Edukasi Praktis oleh <strong class="text-white">Kreasi Rupa</strong></span>
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.2]">
+              Bikin Web App Tanpa Pusing Sintaks, Wujudkan Solusi Digitalmu Bersama AI.
+            </h1>
+
+            <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+              Pelajari <strong class="text-white font-semibold">Vibecoding</strong>—cara praktis membangun aplikasi web fungsional dengan bantuan AI, Tailwind CSS, dan <strong class="text-white font-semibold">Google Apps Script</strong>. Dirancang khusus untuk pemula non-IT, pelaku UMKM, staf administrasi, dan mahasiswa.
+            </p>
+
+            <!-- Primary Actions -->
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button onclick="app.navigate('courses')" class="px-5 py-3 rounded-xl font-semibold text-sm bg-electric-600 hover:bg-electric-500 text-white transition-colors flex items-center gap-2">
+                <span>Mulai Belajar Gratis</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+              <button onclick="app.openModule('vibebiz-pos', 'pos-m1')" class="px-5 py-3 rounded-xl font-medium text-sm bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors flex items-center gap-2">
+                <i data-lucide="play-circle" class="w-4 h-4 text-electric-400"></i>
+                <span>Langsung Coba Modul 1 (Free Trial)</span>
+              </button>
+            </div>
+
+            <!-- Key Facts -->
+            <div class="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-slate-800/80 text-sm">
+              <div>
+                <div class="font-bold text-white">Modul 1 Gratis</div>
+                <div class="text-xs text-slate-400 mt-0.5">Tanpa daftar akun</div>
+              </div>
+              <div>
+                <div class="font-bold text-white">7 Studi Kasus</div>
+                <div class="text-xs text-slate-400 mt-0.5">Siap pakai kerja & usaha</div>
+              </div>
+              <div>
+                <div class="font-bold text-white">Server Rp 0</div>
+                <div class="text-xs text-slate-400 mt-0.5">Google Sheets & Netlify</div>
+              </div>
+              <div>
+                <div class="font-bold text-white">Rp 150.000 / Tema</div>
+                <div class="text-xs text-slate-400 mt-0.5">Sekali bayar + Mentor WA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN SECTIONS CONTAINER -->
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 space-y-20">
+
+        <!-- 1. PILIH LEARNING TRACK (DIRECT ACCESS) -->
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Pilih Jalur Belajar (Learning Path)</h2>
+              <p class="text-sm text-slate-400 mt-1">Setiap tema memiliki Modul 1 bertanda <span class="text-emerald-400 font-medium">Free Trial</span> yang bisa langsung kamu pelajari.</p>
+            </div>
+            <button onclick="app.navigate('courses')" class="text-sm font-medium text-electric-400 hover:text-electric-300 flex items-center gap-1">
+              <span>Lihat rincian semua modul</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div id="home-tracks-preview" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Di-render oleh app.js -->
+          </div>
+        </div>
+
+        <!-- 2. TENTANG KREASI RUPA & METODE VIBECODING -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-4 border-t border-slate-800">
+          <div class="lg:col-span-5 space-y-3">
+            <div class="text-xs font-semibold uppercase tracking-wider text-amber-400">Tentang Kreasi Rupa</div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Fokus pada Output Nyata, Bukan Menghafal Rumus Koding</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              <strong class="text-slate-200">Kreasi Rupa</strong> adalah wadah edukasi digital yang memberdayakan pemula, staf administrasi, mahasiswa, dan UMKM agar produktif memanfaatkan AI. Melalui <strong class="text-slate-200">Kreasi Coding Academy</strong>, kami mengajarkan cara merakit aplikasi web fungsional dengan alur yang masuk akal dan terstruktur.
+            </p>
+          </div>
+
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="surface-subtle p-5 rounded-xl space-y-2">
+              <div class="text-xs font-mono text-electric-400">Langkah 01</div>
+              <h3 class="font-semibold text-white text-sm">Desain UI bersama AI</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Gunakan prompt terstruktur yang sudah kami siapkan untuk membuat antarmuka Tailwind CSS yang rapi tanpa menulis kode dari nol.
+              </p>
+            </div>
+            <div class="surface-subtle p-5 rounded-xl space-y-2">
+              <div class="text-xs font-mono text-amber-400">Langkah 02</div>
+              <h3 class="font-semibold text-white text-sm">Backend Apps Script</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Hubungkan form dan tombol aplikasi ke Google Sheets, Google Docs, dan Gmail milikmu sebagai database gratis.
+              </p>
+            </div>
+            <div class="surface-subtle p-5 rounded-xl space-y-2">
+              <div class="text-xs font-mono text-emerald-400">Langkah 03</div>
+              <h3 class="font-semibold text-white text-sm">Rilis ke Netlify</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Onlinekan aplikasi web dalam hitungan detik agar bisa langsung diakses lewat HP maupun laptop tanpa biaya bulanan.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SKEMA AKSES (FREE TRIAL VS PREMIUM RP 150.000) -->
+        <div id="pricing-section" class="pt-4 border-t border-slate-800 space-y-8">
+          <div class="max-w-2xl">
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Skema Akses & Biaya Belajar</h2>
+            <p class="text-sm text-slate-400 mt-1">
+              Tidak ada biaya langganan bulanan. Coba dulu Modul 1 secara gratis di tema mana pun, lalu buka akses penuh hanya pada tema yang kamu butuhkan.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Free Trial -->
+            <div class="surface-subtle rounded-2xl p-6 flex flex-col justify-between space-y-6">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">FREE TRIAL</span>
+                  <span class="text-xs text-slate-400">Langsung Akses Tanpa Login</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-white">Modul 1 (Dasar & UI Design)</h3>
+                  <div class="text-2xl font-bold text-white mt-1">Gratis <span class="text-xs font-normal text-slate-400">/ Tersedia di 7 Tema</span></div>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300 pt-3 border-t border-slate-800">
+                  <li class="flex items-center gap-2.5">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span>Video materi Modul 1 di seluruh Track</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span>Salin kode UI Tailwind CSS & AI Prompt dasar</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span>Pencatatan progress belajar otomatis di browser</span>
+                  </li>
+                </ul>
+              </div>
+              <button onclick="app.navigate('courses')" class="w-full py-2.5 rounded-xl text-sm font-medium bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-colors">
+                Pilih Modul Gratis
+              </button>
+            </div>
+
+            <!-- Premium Rp 150.000 -->
+            <div class="surface-card rounded-2xl p-6 border-amber-500/50 flex flex-col justify-between space-y-6">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">PREMIUM</span>
+                  <span class="text-xs text-amber-400 font-medium">Sekali Bayar • Akses Selamanya</span>
+                </div>
+                <div class="flex items-baseline justify-between gap-2">
+                  <div>
+                    <h3 class="text-lg font-bold text-white">Akses Penuh per Tema</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Membuka Modul 2 & 3 (Integrasi Apps Script & Otomasi)</p>
+                  </div>
+                  <div class="text-right shrink-0">
+                    <div class="text-2xl font-bold text-amber-400">Rp 150.000</div>
+                    <div class="text-[11px] text-slate-400">per Tema Pembelajaran</div>
+                  </div>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-200 pt-3 border-t border-slate-800">
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                    <span>Akses Seumur Hidup ke Seluruh Video Tutorial & Full Source Code (Starter Kit)</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                    <span>E-Sertifikat Kelulusan Resmi Kreasi Coding Academy</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                    <span>Konsultasi Privat 1-on-1 dengan Mentor via WhatsApp</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                    <span>Akses VIP Channel WhatsApp "Kreasi Coding Community"</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-2.5">
+                <button onclick="app.buyCourseViaWA('Pilih Tema Pembelajaran')" class="flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold bg-amber-500 hover:bg-amber-400 text-navy-950 transition-colors flex items-center justify-center gap-2">
+                  <span>Beli Tema Ini (Rp 150.000)</span>
+                </button>
+                <button onclick="app.unlockAllDemo()" class="py-2.5 px-4 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">
+                  Simulasi Buka VIP
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. FORM KONSULTASI SINGKAT (NETLIFY FORMS READY) -->
+        <div class="surface-subtle rounded-2xl p-6 sm:p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-5 space-y-2">
+              <h3 class="text-lg font-bold text-white">Butuh Rekomendasi Modul?</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                Beri tahu kami kebutuhan aplikasi yang ingin kamu buat. Tim mentor Kreasi Rupa akan membantu memilihkan tema belajar yang paling pas.
+              </p>
+            </div>
+
+            <form name="kreasi-coding-inquiry" method="POST" data-netlify="true" onsubmit="app.handleLeadSubmit(event)" class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <input type="hidden" name="form-name" value="kreasi-coding-inquiry" />
+              <input type="text" name="nama" required placeholder="Nama lengkap" class="px-3.5 py-2.5 rounded-xl bg-navy-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-electric-500" />
+              <input type="tel" name="whatsapp" required placeholder="Nomor WhatsApp (0812...)" class="px-3.5 py-2.5 rounded-xl bg-navy-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-electric-500" />
+              <select name="track" class="px-3.5 py-2.5 rounded-xl bg-navy-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-electric-500">
+                <option value="VibeBiz (UMKM & Kasir)">Track 1: VibeBiz (Solusi UMKM)</option>
+                <option value="VibeCareer (Portofolio & CV)">Track 2: VibeCareer (Karir & Portofolio)</option>
+                <option value="VibeAdmin (Absensi QR & Sekolah)">Track 3: VibeAdmin (Otomasi Admin)</option>
+              </select>
+              <button type="submit" class="py-2.5 px-4 rounded-xl font-semibold text-sm bg-electric-600 hover:bg-electric-500 text-white transition-colors">
+                Kirim Konsultasi
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: KATALOG MODUL (LEARNING PATH)      -->
+    <!-- ========================================== -->
+    <section id="view-courses" class="view-section hidden py-10 max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+      <!-- Clean Header & Track Filter -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-800">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-white">Katalog Modul Pembelajaran</h1>
+          <p class="text-slate-400 text-sm mt-1">
+            3 Track utama dengan 7 studi kasus nyata. Klik pada modul mana saja untuk mulai belajar.
+          </p>
+        </div>
+
+        <!-- Segmented Control Filter -->
+        <div class="inline-flex flex-wrap gap-1.5 p-1 rounded-xl bg-navy-950 border border-slate-800">
+          <button onclick="app.filterCourses('ALL')" data-track-filter="ALL" class="track-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-electric-600 text-white transition-colors">
+            Semua (7)
+          </button>
+          <button onclick="app.filterCourses('vibebiz')" data-track-filter="vibebiz" class="track-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-colors">
+            VibeBiz
+          </button>
+          <button onclick="app.filterCourses('vibecareer')" data-track-filter="vibecareer" class="track-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-colors">
+            VibeCareer
+          </button>
+          <button onclick="app.filterCourses('vibeadmin')" data-track-filter="vibeadmin" class="track-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-colors">
+            VibeAdmin
+          </button>
+        </div>
+      </div>
+
+      <!-- Tracks Container -->
+      <div id="catalog-tracks-container" class="space-y-12">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: RUANG BELAJAR (DISTRACTION-FREE)   -->
+    <!-- ========================================== -->
+    <section id="view-workspace" class="view-section hidden py-8 max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
+      <!-- Top Workspace Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 text-xs text-slate-400">
+            <button onclick="app.navigate('courses')" class="hover:text-white flex items-center gap-1">
+              <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Katalog Modul
+            </button>
+            <span>/</span>
+            <span id="ws-track-badge" class="text-slate-300">Track</span>
+          </div>
+          <h1 id="ws-course-title" class="text-lg sm:text-xl font-bold text-white">Judul Tema</h1>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <div id="ws-course-access-status"></div>
+          <select id="ws-quick-course-select" onchange="app.handleQuickCourseChange(this.value)" class="px-3 py-2 rounded-lg bg-navy-800 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-electric-500">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Workspace Layout: Main Player (Left 8 cols) + Syllabus Sidebar (Right 4 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- MAIN COLUMN -->
+        <div class="lg:col-span-8 space-y-5">
+          <!-- Video Container or Clean Lock State -->
+          <div id="ws-player-container" class="rounded-2xl overflow-hidden border border-slate-800 bg-navy-950"></div>
+
+          <!-- Module Title & Complete Action Bar -->
+          <div class="surface-subtle rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span id="ws-active-module-badge" class="text-[11px] font-semibold px-2 py-0.5 rounded">FREE TRIAL</span>
+                <span id="ws-active-module-duration" class="text-xs text-slate-400">20 Menit</span>
+              </div>
+              <h2 id="ws-active-module-title" class="text-base sm:text-lg font-bold text-white">Judul Modul</h2>
+            </div>
+
+            <button id="ws-complete-btn" onclick="app.toggleCurrentModuleComplete()" class="px-4 py-2 rounded-lg font-semibold text-xs transition-colors flex items-center justify-center gap-2 shrink-0">
+              <span>Tandai Selesai</span>
+            </button>
+          </div>
+
+          <!-- Code Snippet, AI Prompt & Steps Tabs -->
+          <div id="ws-tabs-wrapper" class="surface-subtle rounded-2xl overflow-hidden">
+            <div class="flex border-b border-slate-800 bg-navy-950/50 px-3 pt-2 gap-1 overflow-x-auto">
+              <button onclick="app.switchWorkspaceTab('code')" data-ws-tab="code" class="ws-tab-btn px-4 py-2.5 text-xs font-semibold border-b-2 border-electric-500 text-white flex items-center gap-2 shrink-0">
+                <i data-lucide="code-2" class="w-4 h-4 text-electric-400"></i> Code Snippet / Gist
+              </button>
+              <button onclick="app.switchWorkspaceTab('prompt')" data-ws-tab="prompt" class="ws-tab-btn px-4 py-2.5 text-xs font-medium border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2 shrink-0">
+                <i data-lucide="terminal" class="w-4 h-4 text-amber-400"></i> Prompt AI
+              </button>
+              <button onclick="app.switchWorkspaceTab('guide')" data-ws-tab="guide" class="ws-tab-btn px-4 py-2.5 text-xs font-medium border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2 shrink-0">
+                <i data-lucide="check-square" class="w-4 h-4 text-emerald-400"></i> Panduan Praktik
+              </button>
+            </div>
+
+            <!-- Tab 1: Code -->
+            <div id="ws-tab-code" class="ws-tab-content p-5 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span id="ws-code-filename" class="font-mono text-xs text-slate-400">index.html</span>
+                <button onclick="app.copyActiveCode()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition-colors flex items-center gap-1.5">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Kode
+                </button>
+              </div>
+              <pre class="p-4 rounded-xl bg-navy-950 border border-slate-800 overflow-x-auto text-xs font-mono text-slate-200 leading-relaxed max-h-96"><code id="ws-code-content"></code></pre>
+            </div>
+
+            <!-- Tab 2: Prompt -->
+            <div id="ws-tab-prompt" class="ws-tab-content hidden p-5 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs text-slate-400">Salin prompt ini ke asisten AI (Gemini / ChatGPT) untuk kustomisasi:</span>
+                <button onclick="app.copyActivePrompt()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition-colors flex items-center gap-1.5">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Prompt
+                </button>
+              </div>
+              <div id="ws-prompt-content" class="p-4 rounded-xl bg-navy-950 border border-slate-800 text-xs sm:text-sm text-slate-200 font-mono leading-relaxed whitespace-pre-line"></div>
+            </div>
+
+            <!-- Tab 3: Steps -->
+            <div id="ws-tab-guide" class="ws-tab-content hidden p-5 space-y-2.5">
+              <div id="ws-guide-content" class="space-y-2 text-sm text-slate-300"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR: DAFTAR MODUL & FASILITAS TEMA -->
+        <div class="lg:col-span-4 space-y-5">
+          <div class="surface-subtle rounded-2xl p-5 space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold text-slate-300">Daftar Modul Tema Ini</span>
+              <span id="ws-progress-text" class="font-mono text-emerald-400">0%</span>
+            </div>
+            <div class="w-full h-1.5 bg-navy-950 rounded-full overflow-hidden">
+              <div id="ws-progress-bar" class="h-full bg-electric-500 transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <div id="ws-module-list" class="space-y-2 pt-1"></div>
+          </div>
+
+          <div id="ws-vip-sidebar-card" class="surface-subtle rounded-2xl p-5 space-y-3"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: DASHBOARD MEMBER & SERTIFIKAT      -->
+    <!-- ========================================== -->
+    <section id="view-dashboard" class="view-section hidden py-10 max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+      
+      <!-- Profile & Inline Settings Bar (No Browser Prompt/Confirm!) -->
+      <div class="surface-subtle rounded-2xl p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-electric-600/20 border border-electric-500/40 flex items-center justify-center text-base font-bold text-electric-400 shrink-0" id="dash-avatar-initials">
+            KR
+          </div>
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold text-white" id="dash-student-name-display">Kreator Vibecoding</h1>
+            <p class="text-xs text-slate-400 mt-0.5">Data progress belajar tersimpan otomatis di browser perangkat ini.</p>
+          </div>
+        </div>
+
+        <!-- Inline Controls for Certificate Name & VIP Code -->
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="flex items-center bg-navy-900 border border-slate-700 rounded-lg overflow-hidden">
+            <input id="dash-name-input" type="text" placeholder="Nama di E-Sertifikat..." class="px-3 py-1.5 bg-transparent text-xs text-white focus:outline-none w-40 sm:w-44" />
+            <button onclick="app.saveStudentNameInline()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 border-l border-slate-700">
+              Simpan Nama
+            </button>
+          </div>
+
+          <div class="flex items-center bg-navy-900 border border-slate-700 rounded-lg overflow-hidden">
+            <input id="dash-voucher-input" type="text" placeholder="Kode VIP (KREASI-VIP)" class="px-3 py-1.5 bg-transparent text-xs text-white font-mono focus:outline-none w-36 sm:w-40" />
+            <button onclick="app.applyVoucherInline()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-xs font-semibold text-navy-950">
+              Aktifkan
+            </button>
+          </div>
+
+          <button id="dash-reset-btn" onclick="app.resetProgress()" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors">
+            Reset Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Compact Metrics Row -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="surface-subtle p-4 rounded-xl">
+          <div class="text-xs text-slate-400">Progress Total</div>
+          <div id="dash-stat-percent" class="text-2xl font-bold text-white mt-1">0%</div>
+          <div id="dash-stat-modules" class="text-[11px] text-slate-400 mt-0.5">0/15 modul selesai</div>
+        </div>
+        <div class="surface-subtle p-4 rounded-xl">
+          <div class="text-xs text-slate-400">Tema Premium Aktif</div>
+          <div id="dash-stat-unlocked" class="text-2xl font-bold text-amber-400 mt-1">0 / 7</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">Rp 150.000 / tema</div>
+        </div>
+        <div class="surface-subtle p-4 rounded-xl">
+          <div class="text-xs text-slate-400">Modul Free Trial</div>
+          <div class="text-2xl font-bold text-emerald-400 mt-1">7 Modul</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">Terbuka gratis</div>
+        </div>
+        <div class="surface-subtle p-4 rounded-xl">
+          <div class="text-xs text-slate-400">E-Sertifikat</div>
+          <div id="dash-stat-certs" class="text-2xl font-bold text-electric-400 mt-1">0</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">Siap unduh PDF</div>
+        </div>
+      </div>
+
+      <!-- FASILITAS MEMBER PREMIUM (3 TOMBOL UTAMA SESUAI SPESIFIKASI) -->
+      <div class="surface-card rounded-2xl p-6 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-white">Panel Akses Member Premium</h2>
+            <p id="dash-vip-status-desc" class="text-xs text-slate-400 mt-0.5">
+              Buka minimal 1 tema Premium (atau klik tombol simulasi di kanan) untuk mengakses konsultasi mentor, grup VIP, dan sertifikat.
+            </p>
+          </div>
+          <button onclick="app.unlockAllDemo()" class="self-start sm:self-center shrink-0 px-3.5 py-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-semibold transition-colors">
+            Simulasi Aktifkan Semua Tema VIP
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          <button onclick="app.handleVIPAction('mentor')" class="p-4 rounded-xl bg-navy-900 hover:bg-slate-800/80 border border-slate-700/80 transition-colors flex items-center gap-3.5 text-left">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-white">Hubungi Mentor via WhatsApp</div>
+              <div class="text-xs text-slate-400">Konsultasi privat 1-on-1</div>
+            </div>
+          </button>
+
+          <button onclick="app.handleVIPAction('community')" class="p-4 rounded-xl bg-navy-900 hover:bg-slate-800/80 border border-slate-700/80 transition-colors flex items-center gap-3.5 text-left">
+            <div class="w-10 h-10 rounded-lg bg-electric-500/15 text-electric-400 flex items-center justify-center shrink-0">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-white">Gabung VIP Channel WhatsApp</div>
+              <div class="text-xs text-slate-400">Kreasi Coding Community</div>
+            </div>
+          </button>
+
+          <button onclick="app.handleVIPAction('certificate')" class="p-4 rounded-xl bg-navy-900 hover:bg-slate-800/80 border border-slate-700/80 transition-colors flex items-center gap-3.5 text-left">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center shrink-0">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-white">Download E-Sertifikat (PDF)</div>
+              <div class="text-xs text-slate-400">Sertifikat resmi kelulusan</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- DAFTAR TEMA & STARTER KIT -->
+      <div class="space-y-4">
+        <h2 class="text-base sm:text-lg font-bold text-white">Progress per Tema & Starter Kit</h2>
+        <div id="dash-courses-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 5: STRUKTUR FOLDER, JSON & NETLIFY    -->
+    <!-- ========================================== -->
+    <section id="view-netlify" class="view-section hidden py-10 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
+      <div class="pb-6 border-b border-slate-800">
+        <h1 class="text-2xl sm:text-3xl font-bold text-white">Struktur Kode, <code class="text-electric-400 font-mono">courses.json</code> & Panduan Deploy Netlify</h1>
+        <p class="text-slate-400 text-sm mt-1">
+          Dokumentasi struktur direktori dan data kurikulum dinamis untuk mengonlinekan aplikasi ini di Netlify.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-5 surface-subtle rounded-2xl p-6 space-y-4">
+          <h2 class="text-base font-bold text-white">1. Struktur Folder Netlify</h2>
+          <pre class="p-4 rounded-xl bg-navy-950 border border-slate-800 text-xs font-mono text-slate-300 leading-relaxed overflow-x-auto">
+kreasi-coding-academy/
+├── index.html          # Aplikasi Utama (SPA Ready)
+├── courses.html        # Katalog Learning Path
+├── dashboard.html      # Dashboard Member & VIP
+└── js/
+    ├── courses.json    # Data Kurikulum & Harga
+    └── app.js          # State & LocalStorage</pre>
+
+          <div class="flex flex-col gap-2 pt-2">
+            <button onclick="app.downloadCoursesJSON()" class="w-full py-2.5 px-4 rounded-xl bg-electric-600 hover:bg-electric-500 text-white text-xs font-semibold transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="download" class="w-4 h-4"></i> Download /js/courses.json
+            </button>
+            <button onclick="app.copyCoursesJSON()" class="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="copy" class="w-4 h-4"></i> Salin JSON ke Clipboard
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 surface-subtle rounded-2xl p-6 space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-bold text-white">2. Isi File <code class="text-electric-400 font-mono">/js/courses.json</code></h2>
+            <span class="text-xs font-mono text-slate-400">isFree: true/false • price: 150000</span>
+          </div>
+          <pre class="p-4 rounded-xl bg-navy-950 border border-slate-800 overflow-x-auto text-xs font-mono text-slate-300 leading-relaxed max-h-80"><code id="netlify-json-preview"></code></pre>
+        </div>
+      </div>
+
+      <!-- TUTORIAL LENGKAP PUSH KE GITHUB & DEPLOY NETLIFY -->
+      <div class="surface-card rounded-2xl p-6 sm:p-8 space-y-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-slate-800">
+          <div>
+            <span class="text-xs font-semibold text-electric-400 uppercase tracking-wider">Panduan Langkah demi Langkah</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">Cara Push Kode ke GitHub & Auto-Deploy Netlify</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">
+              Pilih cara yang paling nyaman untukmu: menggunakan perintah Terminal/VS Code atau upload langsung lewat browser.
+            </p>
+          </div>
+
+          <!-- Customizer Username & Repo -->
+          <div class="flex flex-wrap items-center gap-2 bg-navy-950 p-2 rounded-xl border border-slate-800">
+            <input id="git-username-input" oninput="app.updateGitRepoPreview()" type="text" value="username-kamu" placeholder="Username GitHub" class="px-3 py-1.5 rounded-lg bg-navy-900 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-electric-500 w-36" />
+            <span class="text-slate-500 font-mono text-xs">/</span>
+            <input id="git-repo-input" oninput="app.updateGitRepoPreview()" type="text" value="kreasi-coding-academy" placeholder="Nama Repo" class="px-3 py-1.5 rounded-lg bg-navy-900 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-electric-500 w-44" />
+          </div>
+        </div>
+
+        <!-- Langkah 1: Persiapan & Buat Repo -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-5 space-y-4">
+            <div class="inline-flex items-center gap-2 text-xs font-semibold text-amber-400">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center font-mono">1</span>
+              <span>Tahap Persiapan di GitHub</span>
+            </div>
+            <ol class="space-y-3 text-xs sm:text-sm text-slate-300 list-decimal list-inside leading-relaxed">
+              <li>Simpan kode aplikasi ini sebagai file <code class="font-mono text-white bg-navy-950 px-1.5 py-0.5 rounded">index.html</code> di dalam satu folder di komputermu (misal: folder <code class="font-mono text-white">kreasi-coding-academy</code>).</li>
+              <li>Buka <a href="https://github.com/new" target="_blank" rel="noopener" class="text-electric-400 underline hover:text-electric-300">github.com/new</a> untuk membuat repository baru.</li>
+              <li>Isi <strong>Repository name</strong> dengan <code class="font-mono text-white">kreasi-coding-academy</code>.</li>
+              <li>Pilih <strong>Public</strong> atau <strong>Private</strong>, biarkan opsi <em>Add a README file</em> <strong>tidak dicentang</strong>, lalu klik <strong>Create repository</strong>.</li>
+            </ol>
+
+            <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-2">
+              <div class="text-xs font-semibold text-emerald-400">Alternatif Tanpa Terminal (Upload via Browser):</div>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Jika tidak ingin memakai Git CLI, di halaman repository GitHub yang baru dibuat klik link biru <strong>"uploading an existing file"</strong>, tarik file <code class="text-slate-200 font-mono">index.html</code> ke halaman tersebut, lalu klik tombol hijau <strong>Commit changes</strong>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Langkah 2: Perintah Git Push Pertama Kali -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="inline-flex items-center gap-2 text-xs font-semibold text-electric-400">
+                <span class="w-5 h-5 rounded-full bg-electric-500/20 flex items-center justify-center font-mono">2</span>
+                <span>Perintah Terminal / VS Code (Push Pertama Kali)</span>
+              </div>
+              <button onclick="app.copyGitInitCommands()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition-colors flex items-center gap-1.5">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Perintah Git
+              </button>
+            </div>
+
+            <pre class="p-4 rounded-xl bg-navy-950 border border-slate-800 overflow-x-auto text-xs font-mono text-slate-200 leading-relaxed"><code id="git-init-commands"># 1. Masuk ke folder project di Terminal / VS Code
+cd kreasi-coding-academy
+
+# 2. Inisialisasi Git & tambahkan seluruh file
+git init
+git add .
+
+# 3. Buat commit pertama
+git commit -m "Initial commit: Kreasi Coding Academy"
+
+# 4. Pastikan branch utama bernama main
+git branch -M main
+
+# 5. Hubungkan ke repository GitHub kamu
+git remote add origin https://github.com/username-kamu/kreasi-coding-academy.git
+
+# 6. Push kode ke GitHub
+git push -u origin main</code></pre>
+
+            <!-- Langkah 3: Perintah Update Berikutnya -->
+            <div class="pt-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-300">Perintah Saat Ada Revisi / Update Materi Berikutnya:</span>
+                <button onclick="app.copyGitUpdateCommands()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition-colors flex items-center gap-1">
+                  <i data-lucide="copy" class="w-3 h-3"></i> Salin
+                </button>
+              </div>
+              <pre class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 overflow-x-auto text-xs font-mono text-emerald-400 leading-relaxed"><code id="git-update-commands">git add .
+git commit -m "Update modul dan kurikulum"
+git push</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step-by-step Deploy Guide -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="surface-subtle rounded-2xl p-6 space-y-3">
+          <div class="text-xs font-semibold text-amber-400 uppercase tracking-wider">Tahap Akhir • Hubungkan GitHub ke Netlify</div>
+          <h3 class="text-base font-bold text-white">Auto-Deploy dari GitHub Repository</h3>
+          <ol class="space-y-2 text-xs sm:text-sm text-slate-300 list-decimal list-inside leading-relaxed">
+            <li>Login ke <a href="https://app.netlify.com" target="_blank" rel="noopener" class="text-electric-400 underline">app.netlify.com</a>.</li>
+            <li>Klik <strong>Add new site &rarr; Import an existing project &rarr; GitHub</strong>.</li>
+            <li>Pilih repository <code class="font-mono text-slate-200">kreasi-coding-academy</code> yang baru kamu push.</li>
+            <li>Kosongkan <em>Build Command</em>, isi <em>Publish Directory</em> dengan <code class="font-mono text-slate-200">.</code> lalu klik <strong>Deploy site</strong>.</li>
+            <li>Selesai! Setiap kali kamu menjalankan <code class="font-mono text-emerald-400">git push</code>, website Netlify otomatis ter-update.</li>
+          </ol>
+        </div>
+
+        <div class="surface-subtle rounded-2xl p-6 space-y-3">
+          <div class="text-xs font-semibold text-electric-400 uppercase tracking-wider">Opsi Instan • Tanpa GitHub</div>
+          <h3 class="text-base font-bold text-white">Deploy via Netlify Drop (Drag & Drop)</h3>
+          <ol class="space-y-2 text-xs sm:text-sm text-slate-300 list-decimal list-inside leading-relaxed">
+            <li>Simpan file ini sebagai <code class="font-mono text-slate-200">index.html</code> di dalam satu folder di komputermu.</li>
+            <li>Buka <a href="https://app.netlify.com/drop" target="_blank" rel="noopener" class="text-electric-400 underline">app.netlify.com/drop</a>.</li>
+            <li>Tarik dan lepaskan folder tersebut ke halaman Netlify Drop.</li>
+            <li>Website langsung online dan siap dihubungkan dengan domain kustom.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL 1: PRICING & CHECKOUT (CLEAN MODAL)  -->
+  <!-- ========================================== -->
+  <div id="pricing-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/80 backdrop-blur-sm">
+    <div class="surface-card rounded-2xl max-w-lg w-full p-6 sm:p-7 relative shadow-2xl">
+      <button onclick="app.closePricingModal()" class="absolute top-4 right-4 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="space-y-5">
+        <div>
+          <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">Akses Penuh Tema Pembelajaran</span>
+          <h3 id="modal-course-title" class="text-lg sm:text-xl font-bold text-white mt-1">Unlock Tema Pembelajaran</h3>
+        </div>
+
+        <div class="p-4 rounded-xl bg-navy-900 border border-slate-800 flex items-baseline justify-between">
+          <span class="text-xs text-slate-400">Biaya Sekali Bayar</span>
+          <div class="text-xl sm:text-2xl font-bold text-amber-400">Rp 150.000 <span class="text-xs font-normal text-slate-400">/ Tema</span></div>
+        </div>
+
+        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+          <li class="flex items-start gap-2.5">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Akses Seumur Hidup ke Seluruh Video Tutorial & Full Source Code (Starter Kit)</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>E-Sertifikat Kelulusan Resmi</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Konsultasi Privat 1-on-1 dengan Mentor via WhatsApp</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+            <span>Akses VIP Channel WhatsApp "Kreasi Coding Community"</span>
+          </li>
+        </ul>
+
+        <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
+          <button onclick="app.buyCourseViaWA()" class="flex-1 py-3 px-4 rounded-xl font-semibold text-xs sm:text-sm bg-amber-500 hover:bg-amber-400 text-navy-950 transition-colors flex items-center justify-center gap-2">
+            <span>Beli Tema Ini via WhatsApp (Rp 150.000)</span>
+          </button>
+          <button onclick="app.unlockSelectedCourseDemo()" class="py-3 px-4 rounded-xl font-medium text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">
+            Simulasi Buka Tema
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL 2: E-SERTIFIKAT KELULUSAN RESMI      -->
+  <!-- ========================================== -->
+  <div id="certificate-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/85 backdrop-blur-md overflow-y-auto">
+    <div class="max-w-3xl w-full space-y-4 my-8">
+      <div class="flex items-center justify-between bg-navy-900 px-5 py-3 rounded-2xl border border-slate-700">
+        <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-white">
+          <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+          <span>Preview E-Sertifikat Resmi — Kreasi Coding Academy</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs flex items-center gap-1.5">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak / Simpan PDF
+          </button>
+          <button onclick="app.closeCertificateModal()" class="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Certificate Canvas -->
+      <div id="certificate-print-area" class="rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 border-4 border-amber-500/80 shadow-2xl relative overflow-hidden text-center space-y-6">
+        <div class="absolute inset-3 border border-electric-400/30 rounded-2xl pointer-events-none"></div>
+        
+        <div class="flex flex-col items-center space-y-2 relative z-10">
+          <!-- Official Logo Lockup on Certificate -->
+          <div class="inline-flex items-center gap-2.5 bg-white px-4 py-2 rounded-2xl shadow-md mb-1">
+            <svg viewBox="0 0 140 145" class="w-8 h-8 shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 48V62" stroke="#F7B500" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="21" cy="64" r="5.5" fill="#F7B500"/>
+              <path d="M16.5 68H25.5L29 85C29.4 87 27.9 89 25.8 89H16.2C14.1 89 12.6 87 13 85L16.5 68Z" fill="#F7B500"/>
+              <path d="M34 62L52 71V135C42 135 34 127 34 117V62Z" fill="#0066FF"/>
+              <path d="M52 71L66 61V77L50 95L66 113V117C66 127 59.5 135 52 135V71Z" fill="#0095FF"/>
+              <path d="M31 51V58C31 58 43 66 54 66C65 66 79 54 79 46V41L54 55L31 51Z" fill="#071D49"/>
+              <path d="M9 41L55 15L101 33L54 57L9 41Z" fill="#071D49"/>
+              <path d="M28 49L54 36" stroke="#FFFFFF" stroke-width="4.2" stroke-linecap="round"/>
+              <path d="M58 95L86 95L121 131C122.5 132.5 121.5 135 119.2 135H93C91.2 135 89.5 134.2 88.3 132.9L58 100C55.5 97.3 55.5 95 58 95Z" fill="#F0482F"/>
+              <path d="M58 100C55.2 97.2 55.2 92.8 58 90L96.5 50.5C97.7 49.2 99.4 48.5 101.2 48.5H124.5C126.8 48.5 127.9 51.2 126.3 52.8L86 95L67 107L58 100Z" fill="#FBBF24"/>
+              <path d="M104 84L93 95L104 106" stroke="#071D49" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M116 80L108 110" stroke="#071D49" stroke-width="6" stroke-linecap="round"/>
+              <path d="M121 84L132 95L121 106" stroke="#071D49" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="text-left leading-none">
+              <div style="font-family: 'Nunito', sans-serif;" class="font-black text-base tracking-wide text-[#071D49]">KREASI</div>
+              <div class="text-[8px] font-bold tracking-[0.24em] text-[#071D49] mt-0.5">CODING ACADEMY</div>
+            </div>
+          </div>
+          <div class="text-xs font-bold tracking-[0.25em] uppercase text-amber-400">KREASI RUPA • DIGITAL EDUCATION ECOSYSTEM</div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">SERTIFIKAT KELULUSAN</h2>
+          <div class="text-xs font-mono text-slate-400" id="cert-serial-number">No. Verifikasi: KCA-2026-VIP-001</div>
+        </div>
+
+        <div class="space-y-2 relative z-10">
+          <p class="text-xs sm:text-sm text-slate-300">Diberikan dengan bangga kepada:</p>
+          <div id="cert-student-name" class="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-electric-400 via-white to-amber-300 py-1 border-b border-slate-700 max-w-md mx-auto">
+            Kreator Vibecoding
+          </div>
+        </div>
+
+        <div class="space-y-2 max-w-xl mx-auto relative z-10">
+          <p class="text-xs sm:text-sm text-slate-300">Telah menyelesaikan seluruh modul studi kasus & praktik pembuatan aplikasi web pada tema pembelajaran:</p>
+          <h3 id="cert-course-name" class="text-lg sm:text-2xl font-extrabold text-amber-400">
+            Sistem POS Kasir Web + Google Apps Script
+          </h3>
+          <p class="text-xs text-slate-400">Metode Vibecoding (AI-Assisted Development, Tailwind CSS & Google Apps Script Automation)</p>
+        </div>
+
+        <div class="pt-6 grid grid-cols-3 items-end max-w-lg mx-auto text-xs relative z-10">
+          <div class="text-center space-y-1">
+            <div id="cert-date" class="font-bold text-slate-200">8 November 2026</div>
+            <div class="border-t border-slate-700 pt-1 text-slate-400">Tanggal Terbit</div>
+          </div>
+          <div class="flex justify-center">
+            <div class="w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-300 font-extrabold text-[10px] leading-tight p-1">
+              VERIFIED<br/>KCA AI
+            </div>
+          </div>
+          <div class="text-center space-y-1">
+            <div class="font-bold text-white">Lead Mentor</div>
+            <div class="border-t border-slate-700 pt-1 text-slate-400">Kreasi Coding Academy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- FOOTER -->
+  <footer class="bg-navy-950 border-t border-slate-800/80 py-12 text-slate-400 text-xs sm:text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-slate-800/80">
+      <div class="md:col-span-5 space-y-3">
+        <div class="flex items-center gap-2.5">
+          <svg viewBox="0 0 140 145" class="w-9 h-9 shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 48V62" stroke="#F7B500" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="21" cy="64" r="5.5" fill="#F7B500"/>
+            <path d="M16.5 68H25.5L29 85C29.4 87 27.9 89 25.8 89H16.2C14.1 89 12.6 87 13 85L16.5 68Z" fill="#F7B500"/>
+            <path d="M34 62L52 71V135C42 135 34 127 34 117V62Z" fill="#0066FF"/>
+            <path d="M52 71L66 61V77L50 95L66 113V117C66 127 59.5 135 52 135V71Z" fill="#0095FF"/>
+            <path d="M31 51V58C31 58 43 66 54 66C65 66 79 54 79 46V41L54 55L31 51Z" fill="#071D49" stroke="#93C5FD" stroke-width="1.5"/>
+            <path d="M9 41L55 15L101 33L54 57L9 41Z" fill="#071D49" stroke="#93C5FD" stroke-width="1.8"/>
+            <path d="M28 49L54 36" stroke="#F8FAFC" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M58 95L86 95L121 131C122.5 132.5 121.5 135 119.2 135H93C91.2 135 89.5 134.2 88.3 132.9L58 100C55.5 97.3 55.5 95 58 95Z" fill="#F0482F"/>
+            <path d="M58 100C55.2 97.2 55.2 92.8 58 90L96.5 50.5C97.7 49.2 99.4 48.5 101.2 48.5H124.5C126.8 48.5 127.9 51.2 126.3 52.8L86 95L67 107L58 100Z" fill="#FBBF24"/>
+            <path d="M104 84L93 95L104 106" stroke="#F8FAFC" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M116 80L108 110" stroke="#F8FAFC" stroke-width="6" stroke-linecap="round"/>
+            <path d="M121 84L132 95L121 106" stroke="#F8FAFC" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="leading-none">
+            <div style="font-family: 'Nunito', sans-serif;" class="font-black text-lg tracking-wide text-white">KREASI</div>
+            <div class="text-[9px] font-bold tracking-[0.24em] text-slate-400 mt-0.5">CODING ACADEMY</div>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+          Produk edukasi unggulan dari <strong>Kreasi Rupa</strong>. Memberdayakan pemula non-IT, UMKM, staf administrasi, dan mahasiswa membangun solusi web berbasis AI & Google Apps Script.
+        </p>
+        <div class="text-xs text-slate-500">
+          📍 Bekasi, Jawa Barat, Indonesia • Siap Deploy di Netlify
+        </div>
+      </div>
+
+      <div class="md:col-span-3 space-y-2">
+        <div class="font-bold text-white uppercase tracking-wider text-xs">3 Track Utama</div>
+        <ul class="space-y-1.5 text-xs">
+          <li><button onclick="app.filterCourses('vibebiz'); app.navigate('courses')" class="hover:text-electric-400">Track 1: VibeBiz (UMKM & POS)</button></li>
+          <li><button onclick="app.filterCourses('vibecareer'); app.navigate('courses')" class="hover:text-electric-400">Track 2: VibeCareer (Portofolio & CV)</button></li>
+          <li><button onclick="app.filterCourses('vibeadmin'); app.navigate('courses')" class="hover:text-electric-400">Track 3: VibeAdmin (Sekolah & QR)</button></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-4 space-y-2">
+        <div class="font-bold text-white uppercase tracking-wider text-xs">Akses Cepat & Dokumentasi</div>
+        <ul class="space-y-1.5 text-xs">
+          <li><button onclick="app.navigate('dashboard')" class="hover:text-amber-400">Dashboard Member & Klaim E-Sertifikat</button></li>
+          <li><button onclick="app.navigate('netlify')" class="hover:text-electric-400">Download /js/courses.json & Panduan Netlify</button></li>
+          <li><button onclick="app.openPricingModal()" class="hover:text-amber-400">Upgrade Member Premium (Rp 150.000/Tema)</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>&copy; 2026 <strong>Kreasi Rupa</strong> — Kreasi Coding Academy. All rights reserved.</div>
+      <div class="flex items-center gap-4">
+        <span class="text-emerald-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Netlify Ready</span>
+        <span>Tailwind CSS + ES6 Modules</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================= -->
+  <!-- APPLICATION DATA (/js/courses.json) & LOGIC (/js/app.js)  -->
+  <!-- ========================================================= -->
+  <script>
+    /**
+     * STRUKTUR DATA /js/courses.json
+     * Memuat 3 Track Utama, 7 Tema Pembelajaran (price: 150000),
+     * serta daftar modul dengan status isFree: true (Modul 1) dan isFree: false (Modul 2 & 3).
+     */
+    const COURSES_JSON_DATA = {
+      platform: "Kreasi Coding Academy",
+      umbrellaBrand: "Kreasi Rupa",
+      currency: "IDR",
+      defaultThemePrice: 150000,
+      whatsappAdmin: "6281234567890",
+      vipChannelUrl: "https://whatsapp.com/channel/0029VaKreasiCodingVIP",
+      tracks: [
+        {
+          trackId: "vibebiz",
+          trackCode: "TRACK 1",
+          trackName: "VibeBiz (Solusi UMKM & Bisnis Digital)",
+          badgeColor: "amber",
+          icon: "store",
+          description: "Bangun aplikasi kasir (POS) dan sistem pesanan mandiri terintegrasi Google Sheets & WhatsApp tanpa biaya langganan bulanan.",
+          themes: [
+            {
+              id: "vibebiz-pos",
+              title: "Sistem POS Kasir Web + Google Apps Script",
+              subtitle: "Aplikasi kasir modern dengan keranjang real-time, database Google Sheets, dan cetak struk termal.",
+              price: 150000,
+              level: "Pemula • UMKM",
+              starterKitUrl: "https://docs.google.com/spreadsheets/create",
+              modules: [
+                {
+                  moduleId: "pos-m1",
+                  number: 1,
+                  title: "UI Kasir Interaktif (Tailwind CSS)",
+                  isFree: true,
+                  duration: "22 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "index.html (UI Kasir Tailwind)",
+                  codeSnippet: `<!-- Modul 1 [FREE TRIAL]: Kerangka UI Kasir Interaktif -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 bg-slate-900 text-white rounded-2xl">
+  <!-- Katalog Produk -->
+  <div class="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4" id="product-grid">
+    <button onclick="addToCart('Kopi Susu Gula Aren', 18000)" class="p-4 rounded-xl bg-slate-800 hover:border-blue-500 border border-slate-700 text-left">
+      <div class="font-bold">Kopi Susu Gula Aren</div>
+      <div class="text-amber-400 font-extrabold mt-1">Rp 18.000</div>
+    </button>
+  </div>
+  <!-- Panel Struk Kasir -->
+  <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
+    <h3 class="font-bold text-lg mb-3">Keranjang Transaksi</h3>
+    <div id="cart-items" class="space-y-2 text-sm"></div>
+    <button onclick="checkoutPOS()" class="mt-4 w-full py-3 rounded-xl bg-blue-600 font-bold">Simpan & Cetak Struk</button>
+  </div>
+</div>`,
+                  aiPrompt: `Bertindaklah sebagai Senior UI/UX Developer. Buatkan satu file HTML dengan Tailwind CSS untuk aplikasi POS Kasir UMKM Kedai Kopi. Gunakan tema Dark Navy (#0F172A), tombol produk interaktif yang otomatis menghitung subtotal, PPN opsional, kembalian uang tunai, dan tombol Checkout.`,
+                  steps: [
+                    "Salin prompt AI di tab sebelah ke Gemini untuk men-generate tampilan katalog produk usaha Anda.",
+                    "Sesuaikan daftar menu dan harga satuan di dalam array JavaScript.",
+                    "Uji coba fungsi tambah keranjang dan kalkulasi kembalian langsung di browser."
+                  ]
+                },
+                {
+                  moduleId: "pos-m2",
+                  number: 2,
+                  title: "Database Kasir di Google Sheets via Apps Script",
+                  isFree: false,
+                  duration: "28 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "Code.gs (Google Apps Script Webhook)",
+                  codeSnippet: `// Modul 2 [PREMIUM]: Simpan Transaksi Kasir ke Google Sheets
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Transaksi');
+  const data = JSON.parse(e.postData.contents);
+  
+  sheet.appendRow([
+    new Date(),
+    data.invoiceId,
+    data.namaKasir,
+    JSON.stringify(data.items),
+    data.totalBayar,
+    data.metodePembayaran
+  ]);
+  
+  return ContentService.createTextOutput(JSON.stringify({
+    status: 'success',
+    message: 'Transaksi berhasil disimpan ke Google Sheets!'
+  })).setMimeType(ContentService.MimeType.JSON);
+}`,
+                  aiPrompt: `Buatkan script Google Apps Script (doPost) yang menerima payload JSON dari Web Kasir dan menyimpannya ke sheet 'Transaksi' lengkap dengan timestamp otomatis dan nomor invoice unik.`,
+                  steps: [
+                    "Buka Google Sheets baru dan beri nama tab 'Transaksi'.",
+                    "Klik menu Extensions > Apps Script, lalu tempelkan kode Code.gs di atas.",
+                    "Klik Deploy > New Deployment > Web App (Who has access: Anyone) dan salin URL Web App ke aplikasi kasir."
+                  ]
+                },
+                {
+                  moduleId: "pos-m3",
+                  number: 3,
+                  title: "Otomasi Cetak Struk & Laporan Penjualan",
+                  isFree: false,
+                  duration: "25 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "thermal-print.js (Cetak Struk 58mm & Rekap)",
+                  codeSnippet: `// Modul 3 [PREMIUM]: Cetak Struk Thermal 58mm & Rekap Harian
+function printThermalReceipt(order) {
+  const printWindow = window.open('', '_blank', 'width=320,height=500');
+  printWindow.document.write(\`
+    <html><body style="font-family:monospace;width:58mm;font-size:12px;">
+      <center><b>KREASI KOPI NUSANTARA</b><br/>Nota: \${order.invoiceId}</center>
+      <hr/>
+      \${order.items.map(i => \`<div>\${i.qty}x \${i.name} - Rp \${i.price * i.qty}</div>\`).join('')}
+      <hr/>
+      <b>TOTAL: Rp \${order.totalBayar.toLocaleString('id-ID')}</b>
+    </body></html>
+  \`);
+  printWindow.document.close();
+  printWindow.print();
+}`,
+                  aiPrompt: `Buatkan fungsi JavaScript untuk memformat data keranjang kasir menjadi layout struk printer thermal ukuran 58mm yang otomatis memanggil dialog cetak browser.`,
+                  steps: [
+                    "Hubungkan tombol 'Cetak Struk' dengan fungsi printThermalReceipt().",
+                    "Aktifkan trigger harian di Google Apps Script untuk mengirim rekap omzet PDF ke email pemilik toko."
+                  ]
+                }
+              ]
+            },
+            {
+              id: "vibebiz-order",
+              title: "Web Order Mandiri (Self-Order Menu)",
+              subtitle: "Katalog menu digital QR meja yang meneruskan pesanan pelanggan langsung ke WhatsApp kasir.",
+              price: 150000,
+              level: "Pemula • Kuliner & Retail",
+              starterKitUrl: "https://docs.google.com/spreadsheets/create",
+              modules: [
+                {
+                  moduleId: "order-m1",
+                  number: 1,
+                  title: "Katalis Menu & Keranjang Belanja Digital",
+                  isFree: true,
+                  duration: "19 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "menu-katalog.html",
+                  codeSnippet: `<!-- Modul 1 [FREE TRIAL]: Katalog Menu Digital Mobile-First -->
+<div class="max-w-md mx-auto bg-slate-900 p-4 rounded-3xl border border-slate-800">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="font-extrabold text-white">Menu Meja #04</h3>
+    <span class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold" id="badge-total">0 Item</span>
+  </div>
+  <!-- Card Makanan -->
+  <div class="p-3 rounded-2xl bg-slate-800/80 flex items-center justify-between">
+    <div>
+      <div class="font-bold text-white text-sm">Nasi Goreng Spesial AI</div>
+      <div class="text-xs text-amber-400 font-bold">Rp 25.000</div>
+    </div>
+    <button class="px-3 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold">+ Tambah</button>
+  </div>
+</div>`,
+                  aiPrompt: `Buatkan halaman Web Self-Order Menu bergaya aplikasi pesan makanan mobile-first dengan fitur filter kategori (Makanan, Minuman, Camilan) dan floating bottom bar total harga.`,
+                  steps: [
+                    "Rancang tampilan menu ramah smartphone menggunakan kelas max-w-md mx-auto di Tailwind.",
+                    "Tambahkan input nomor meja atau alamat pengiriman pelanggan."
+                  ]
+                },
+                {
+                  moduleId: "order-m2",
+                  number: 2,
+                  title: "Kirim Pesanan Otomatis ke WhatsApp Kasir",
+                  isFree: false,
+                  duration: "24 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "wa-checkout.js",
+                  codeSnippet: `// Modul 2 [PREMIUM]: Format Pesanan Otomatis ke WhatsApp Kasir & Google Sheets
+function sendOrderToWhatsApp(nomorKasir, namaPelanggan, nomorMeja, items, total) {
+  let pesan = \`*PESANAN BARU - MEJA \${nomorMeja}*\\nPemesan: \${namaPelanggan}\\n------------------\\n\`;
+  items.forEach(item => {
+    pesan += \`• \${item.qty}x \${item.nama} (Rp \${(item.harga * item.qty).toLocaleString('id-ID')})\\n\`;
+  });
+  pesan += \`------------------\\n*TOTAL: Rp \${total.toLocaleString('id-ID')}*\`;
+  
+  const waUrl = \`https://wa.me/\${nomorKasir}?text=\${encodeURIComponent(pesan)}\`;
+  window.open(waUrl, '_blank');
+}`,
+                  aiPrompt: `Buatkan script checkout yang merangkum daftar pesanan keranjang belanja menjadi pesan WhatsApp rapi lengkap dengan rincian item, catatan pedas/manis, dan total pembayaran.`,
+                  steps: [
+                    "Ganti variabel nomorKasir dengan nomor WhatsApp admin toko dalam format 628xxx.",
+                    "Cetak QR Code URL halaman Netlify Anda dan tempelkan di meja pelanggan."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          trackId: "vibecareer",
+          trackCode: "TRACK 2",
+          trackName: "VibeCareer (Persiapan Karir & Portofolio)",
+          badgeColor: "electric",
+          icon: "briefcase",
+          description: "Tingkatkan daya saing karirmu dengan website portofolio interaktif dan aplikasi pembuat CV otomatis siap kirim ke HRD.",
+          themes: [
+            {
+              id: "vibecareer-portfolio",
+              title: "Web Portofolio Interaktif & Responsive",
+              subtitle: "Tampilkan karya terbaikmu dalam website personal modern yang online 24 jam di Netlify.",
+              price: 150000,
+              level: "Mahasiswa • Career Switcher",
+              starterKitUrl: "https://app.netlify.com/drop",
+              modules: [
+                {
+                  moduleId: "port-m1",
+                  number: 1,
+                  title: "Layouting Hero & Project Showcase",
+                  isFree: true,
+                  duration: "20 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "portfolio-hero.html",
+                  codeSnippet: `<!-- Modul 1 [FREE TRIAL]: Hero Section & Showcase Portofolio -->
+<section class="py-12 px-6 bg-slate-900 text-white rounded-3xl border border-slate-800">
+  <span class="text-xs font-bold uppercase tracking-widest text-sky-400">Available for Hire</span>
+  <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Halo, Saya <span class="text-amber-400">Raka Pratama</span></h1>
+  <p class="text-slate-400 mt-3 max-w-xl">Digital Marketer & AI Automation Enthusiast yang membantu bisnis tumbuh lewat inovasi web.</p>
+  <div class="mt-6 flex gap-3">
+    <a href="#projects" class="px-5 py-2.5 rounded-xl bg-blue-600 font-bold text-sm">Lihat Project</a>
+    <a href="https://wa.me/628123456" class="px-5 py-2.5 rounded-xl bg-slate-800 font-semibold text-sm">Hubungi Saya</a>
+  </div>
+</section>`,
+                  aiPrompt: `Buatkan Landing Page Portofolio Profesional menggunakan Tailwind CSS dengan Hero Section, Statistik Pencapaian, Galeri Studi Kasus Project, dan tombol kontak WhatsApp/LinkedIn.`,
+                  steps: [
+                    "Masukkan profil singkat, keahlian utama, dan 3 studi kasus project terbaikmu.",
+                    "Pastikan tampilan responsif di layar HP maupun desktop."
+                  ]
+                },
+                {
+                  moduleId: "port-m2",
+                  number: 2,
+                  title: "Custom Domain & Hosting Gratis di Netlify",
+                  isFree: false,
+                  duration: "18 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "netlify.toml (Konfigurasi Hosting & Form)",
+                  codeSnippet: `# Modul 2 [PREMIUM]: Konfigurasi netlify.toml & Custom Domain
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"`,
+                  aiPrompt: `Buatkan konfigurasi file netlify.toml untuk Single Page Application beserta form kontak HTML yang menggunakan atribut data-netlify="true" agar pesan HRD langsung masuk ke email.`,
+                  steps: [
+                    "Unggah folder portofolio ke Netlify Drop.",
+                    "Hubungkan custom domain (.com / .my.id) melalui pengaturan DNS Netlify dan aktifkan SSL HTTPS gratis."
+                  ]
+                }
+              ]
+            },
+            {
+              id: "vibecareer-cv",
+              title: "Generator CV & Surat Lamaran Otomatis",
+              subtitle: "Aplikasi pembuat CV ATS-Friendly instan dari form input ke dokumen PDF siap kirim.",
+              price: 150000,
+              level: "Fresh Graduate • Pencari Kerja",
+              starterKitUrl: "https://docs.google.com/document/create",
+              modules: [
+                {
+                  moduleId: "cv-m1",
+                  number: 1,
+                  title: "Form Input Data Diri & Pengalaman",
+                  isFree: true,
+                  duration: "21 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "cv-builder-form.html",
+                  codeSnippet: `<!-- Modul 1 [FREE TRIAL]: Form Live Preview Generator CV -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-900 p-6 rounded-2xl text-white">
+  <div class="space-y-3">
+    <input id="in-nama" oninput="syncCV()" placeholder="Nama Lengkap & Gelar" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700" />
+    <textarea id="in-ringkasan" oninput="syncCV()" placeholder="Ringkasan Profesional..." class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700"></textarea>
+  </div>
+  <div class="p-6 rounded-xl bg-white text-slate-900">
+    <h2 id="out-nama" class="text-2xl font-extrabold">Nama Lengkap Anda</h2>
+    <p id="out-ringkasan" class="text-sm text-slate-600 mt-2">Ringkasan profesional akan tampil secara real-time di sini...</p>
+  </div>
+</div>`,
+                  aiPrompt: `Buatkan aplikasi Web CV Builder dengan dua kolom: kolom kiri berisi form input data diri, pengalaman kerja, dan skill; kolom kanan menampilkan live preview CV ATS-friendly secara real-time.`,
+                  steps: [
+                    "Gunakan event oninput untuk menghubungkan setiap kolom form dengan elemen preview CV.",
+                    "Tambahkan tombol AI Polish untuk merapikan kalimat deskripsi pengalaman kerja."
+                  ]
+                },
+                {
+                  moduleId: "cv-m2",
+                  number: 2,
+                  title: "Export Hasil CV ke PDF Ready-to-Send",
+                  isFree: false,
+                  duration: "26 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "export-cv-pdf.gs",
+                  codeSnippet: `// Modul 2 [PREMIUM]: Generate PDF CV dari Template Google Docs via Apps Script
+function generateCVPdf(formData) {
+  const templateId = 'ID_GOOGLE_DOCS_TEMPLATE_ANDA';
+  const copyFile = DriveApp.getFileById(templateId).makeCopy('CV_' + formData.nama);
+  const doc = DocumentApp.openById(copyFile.getId());
+  const body = doc.getBody();
+  
+  body.replaceText('{{NAMA_LENGKAP}}', formData.nama);
+  body.replaceText('{{POSISI}}', formData.posisi);
+  body.replaceText('{{PENGALAMAN}}', formData.pengalaman);
+  doc.saveAndClose();
+  
+  const pdfBlob = copyFile.getAs(MimeType.PDF);
+  const pdfFile = DriveApp.createFile(pdfBlob);
+  pdfFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  return pdfFile.getDownloadUrl();
+}`,
+                  aiPrompt: `Buatkan script Google Apps Script yang mengganti placeholder {{NAMA}}, {{SKILL}}, dan {{PENGALAMAN}} pada template Google Docs lalu mengonversinya menjadi file PDF dan mengembalikan link downloadnya.`,
+                  steps: [
+                    "Siapkan template CV rapi di Google Docs dengan tag kurung kurawal ganda {{...}}.",
+                    "Hubungkan form web dengan Web App URL Apps Script untuk menghasilkan PDF sekali klik."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          trackId: "vibeadmin",
+          trackCode: "TRACK 3",
+          trackName: "VibeAdmin (Otomasi Administrasi & Sekolah)",
+          badgeColor: "emerald",
+          icon: "building-2",
+          description: "Otomatisasi pekerjaan administrasi kantor, sekolah, dan kepanitiaan event: mulai dari absensi QR Code, blast E-Ticket email, hingga E-Rapor grafik.",
+          themes: [
+            {
+              id: "vibeadmin-qr",
+              title: "Sistem Absensi QR Code",
+              subtitle: "Buat kartu QR siswa/karyawan dan rekap kehadiran real-time menggunakan kamera HP/laptop ke Google Sheets.",
+              price: 150000,
+              level: "Staf Admin • Guru & HR",
+              starterKitUrl: "https://docs.google.com/spreadsheets/create",
+              modules: [
+                {
+                  moduleId: "qr-m1",
+                  number: 1,
+                  title: "Generator QR Code Siswa/Karyawan",
+                  isFree: true,
+                  duration: "17 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "qr-generator.html",
+                  codeSnippet: `<!-- Modul 1 [FREE TRIAL]: Generator Kartu ID & QR Code Otomatis -->
+<div class="p-6 bg-slate-900 rounded-2xl text-center space-y-4 max-w-sm mx-auto text-white border border-slate-800">
+  <input id="nik-input" value="KCA-2026-089" class="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-700 text-center font-mono" />
+  <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=KCA-2026-089" class="mx-auto rounded-xl border-4 border-white" alt="QR Code" />
+  <button onclick="updateQR()" class="w-full py-2.5 rounded-xl bg-blue-600 font-bold text-sm">Buat QR Code</button>
+</div>`,
+                  aiPrompt: `Buatkan aplikasi Web Generator Kartu Absensi QR Code untuk siswa/karyawan yang menampilkan foto, nama, nomor induk, dan gambar QR Code siap cetak.`,
+                  steps: [
+                    "Masukkan Nomor Induk Siswa (NIS) atau Nomor Induk Karyawan (NIK) sebagai payload unik QR.",
+                    "Cetak kartu ID secara massal dari daftar nama menggunakan loop JavaScript."
+                  ]
+                },
+                {
+                  moduleId: "qr-m2",
+                  number: 2,
+                  title: "Scanner Kamera & Input Timestamp ke Google Sheets",
+                  isFree: false,
+                  duration: "30 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "qr-scanner-sheets.js",
+                  codeSnippet: `// Modul 2 [PREMIUM]: Integrasi html5-qrcode Scanner & Kirim ke Google Sheets
+function onScanSuccess(decodedText) {
+  fetch('URL_WEB_APP_GOOGLE_APPS_SCRIPT_ANDA', {
+    method: 'POST',
+    body: JSON.stringify({
+      idPeserta: decodedText,
+      waktuHadir: new Date().toLocaleString('id-ID'),
+      status: 'HADIR TEPAT WAKTU'
+    })
+  })
+  .then(res => res.json())
+  .then(data => alert('Absensi Berhasil: ' + decodedText));
+}`,
+                  aiPrompt: `Integrasikan library html5-qrcode pada halaman web untuk memindai QR Code lewat kamera HP lalu mengirim ID yang terpindai ke Google Sheets via fetch POST beserta bunyi beep sukses.`,
+                  steps: [
+                    "Sematkan library html5-qrcode melalui CDN di bagian head HTML.",
+                    "Pasang validasi di Apps Script agar siswa/karyawan yang sama tidak tercatat dua kali di hari yang sama."
+                  ]
+                }
+              ]
+            },
+            {
+              id: "vibeadmin-event",
+              title: "Web Pendaftaran Event & E-Ticket",
+              subtitle: "Landing page registrasi seminar/workshop yang otomatis mengirim E-Ticket QR Code ke email pendaftar.",
+              price: 150000,
+              level: "Panitia Event • Organisasi",
+              starterKitUrl: "https://docs.google.com/spreadsheets/create",
+              modules: [
+                {
+                  moduleId: "event-m1",
+                  number: 1,
+                  title: "Landing Page Registrasi Event",
+                  isFree: true,
+                  duration: "19 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "event-landing.html",
+                  codeSnippet: `<!-- Modul 1 [FREE TRIAL]: Form Registrasi Event & Countdown -->
+<form class="p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-4 max-w-md mx-auto text-white">
+  <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold">Kuota Terbatas: Sisa 25 Kursi</span>
+  <h3 class="text-xl font-extrabold">Daftar Workshop Vibecoding AI 2026</h3>
+  <input type="text" placeholder="Nama Lengkap Peserta" required class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700" />
+  <input type="email" placeholder="Alamat Email Aktif (Untuk E-Ticket)" required class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700" />
+  <button class="w-full py-3 rounded-xl bg-amber-500 text-slate-950 font-extrabold">Amankan Tiket Sekarang</button>
+</form>`,
+                  aiPrompt: `Buatkan Landing Page Pendaftaran Seminar & Workshop lengkap dengan hitung mundur waktu acara, profil pembicara, dan formulir registrasi responsif.`,
+                  steps: [
+                    "Siapkan form input Nama, Email, Instansi, dan Nomor WhatsApp.",
+                    "Tampilkan indikator loading saat peserta menekan tombol daftar."
+                  ]
+                },
+                {
+                  moduleId: "event-m2",
+                  number: 2,
+                  title: "Blast E-Ticket QR Otomatis ke Email Pendaftar",
+                  isFree: false,
+                  duration: "27 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "blast-eticket.gs",
+                  codeSnippet: `// Modul 2 [PREMIUM]: Kirim Email HTML + E-Ticket QR Otomatis via MailApp
+function sendEventTicket(nama, email, kodeTiket) {
+  const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(kodeTiket);
+  const htmlBody = \`
+    <div style="font-family:sans-serif;padding:24px;background:#0F172A;color:#fff;border-radius:16px;">
+      <h2 style="color:#F59E0B;">E-Ticket Resmi Workshop Kreasi Rupa</h2>
+      <p>Halo <b>\${nama}</b>, pendaftaranmu telah terkonfirmasi!</p>
+      <img src="\${qrUrl}" alt="QR Ticket" style="border:6px solid #fff;border-radius:12px;" />
+      <p>Kode Tiket: <b>\${kodeTiket}</b></p>
+    </div>
+  \`;
+  MailApp.sendEmail({
+    to: email,
+    subject: '[E-TICKET] Konfirmasi Pendaftaran - ' + kodeTiket,
+    htmlBody: htmlBody
+  });
+}`,
+                  aiPrompt: `Buatkan fungsi Google Apps Script menggunakan MailApp.sendEmail yang mengirimkan email berdesain HTML gelap modern berisi gambar QR Code tiket unik setiap kali baris baru masuk di Google Sheets.`,
+                  steps: [
+                    "Uji pengiriman email menggunakan akun Gmail Anda melalui Apps Script.",
+                    "Gunakan QR Scanner dari Sub-tema 1 untuk memvalidasi tiket peserta di pintu masuk gedung acara."
+                  ]
+                }
+              ]
+            },
+            {
+              id: "vibeadmin-rapor",
+              title: "E-Rapor & Dasbor Penilaian Interaktif",
+              subtitle: "Sistem rekap nilai otomatis dengan predikat kelulusan dan visualisasi grafik perkembangan.",
+              price: 150000,
+              level: "Guru • Dosen & Akademik",
+              starterKitUrl: "https://docs.google.com/spreadsheets/create",
+              modules: [
+                {
+                  moduleId: "rapor-m1",
+                  number: 1,
+                  title: "Kalkulasi Nilai & Rata-rata Otomatis",
+                  isFree: true,
+                  duration: "20 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "kalkulator-rapor.js",
+                  codeSnippet: `// Modul 1 [FREE TRIAL]: Kalkulasi Bobot Nilai & Predikat Otomatis
+function hitungNilaiAkhir(tugas, uts, uas) {
+  const nilaiAkhir = (tugas * 0.3) + (uts * 0.3) + (uas * 0.4);
+  let predikat = 'C';
+  if (nilaiAkhir >= 85) predikat = 'A (Sangat Baik)';
+  else if (nilaiAkhir >= 75) predikat = 'B (Baik)';
+  
+  return {
+    skor: nilaiAkhir.toFixed(1),
+    predikat: predikat,
+    lulus: nilaiAkhir >= 70
+  };
+}`,
+                  aiPrompt: `Buatkan tabel input nilai siswa interaktif dengan perhitungan otomatis nilai akhir (30% Tugas, 30% UTS, 40% UAS), penentuan predikat A/B/C, dan badge status Lulus/Remedial.`,
+                  steps: [
+                    "Atur bobot persentase komponen penilaian sesuai kurikulum sekolah/kampus.",
+                    "Tambahkan fitur pencarian nama siswa dan filter per kelas."
+                  ]
+                },
+                {
+                  moduleId: "rapor-m2",
+                  number: 2,
+                  title: "Dasbor Visualisasi Grafik Nilai",
+                  isFree: false,
+                  duration: "25 Menit",
+                  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                  filename: "dashboard-chart.js",
+                  codeSnippet: `// Modul 2 [PREMIUM]: Render Grafik Distribusi Nilai dari API Google Sheets
+async function loadRaporDashboard(sheetApiUrl) {
+  const res = await fetch(sheetApiUrl);
+  const students = await res.json();
+  
+  const rataKelas = students.reduce((acc, s) => acc + Number(s.nilaiAkhir), 0) / students.length;
+  document.getElementById('stat-rata-kelas').textContent = rataKelas.toFixed(1);
+  // Render visual bar chart per mata pelajaran
+}`,
+                  aiPrompt: `Buatkan dasbor analitik E-Rapor menggunakan Tailwind CSS dan Chart.js yang mengambil data JSON dari Google Sheets lalu menampilkan grafik batang rata-rata nilai per mata pelajaran serta top 5 siswa berprestasi.`,
+                  steps: [
+                    "Hubungkan endpoint doGet() Google Apps Script sebagai sumber data JSON real-time.",
+                    "Tambahkan tombol Cetak Lembar E-Rapor per siswa untuk dibagikan kepada orang tua."
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    /**
+     * MAIN SPA CONTROLLER (/js/app.js)
+     * Mengelola navigasi halaman, state LocalStorage, unlock modul premium,
+     * pemutar video & tab kode, serta pembuatan E-Sertifikat.
+     */
+    const app = {
+      state: {
+        currentView: 'home',
+        trackFilter: 'ALL',
+        activeCourseId: 'vibebiz-pos',
+        activeModuleId: 'pos-m1',
+        activeWorkspaceTab: 'code',
+        selectedPricingCourseId: null,
+        studentName: 'Kreator Vibecoding',
+        completedModules: [], // Array of moduleId saved in localStorage
+        unlockedCourses: []   // Array of themeId saved in localStorage
+      },
+
+      init() {
+        this.loadLocalStorage();
+        this.renderHomeTracksPreview();
+        this.renderCatalog();
+        this.populateWorkspaceSelector();
+        this.renderWorkspace();
+        this.renderDashboard();
+        this.renderNetlifyJSONPreview();
+        this.updateGlobalProgressBadges();
+        lucide.createIcons();
+      },
+
+      loadLocalStorage() {
+        try {
+          const savedCompleted = localStorage.getItem('kca_completed_modules');
+          const savedUnlocked = localStorage.getItem('kca_unlocked_courses');
+          const savedName = localStorage.getItem('kca_student_name');
+
+          if (savedCompleted) this.state.completedModules = JSON.parse(savedCompleted);
+          if (savedUnlocked) this.state.unlockedCourses = JSON.parse(savedUnlocked);
+          if (savedName) this.state.studentName = savedName;
+        } catch (err) {
+          console.warn('LocalStorage error:', err);
+        }
+      },
+
+      saveLocalStorage() {
+        try {
+          localStorage.setItem('kca_completed_modules', JSON.stringify(this.state.completedModules));
+          localStorage.setItem('kca_unlocked_courses', JSON.stringify(this.state.unlockedCourses));
+          localStorage.setItem('kca_student_name', this.state.studentName);
+        } catch (err) {
+          console.warn('LocalStorage save error:', err);
+        }
+      },
+
+      getAllThemes() {
+        const list = [];
+        COURSES_JSON_DATA.tracks.forEach(track => {
+          track.themes.forEach(theme => {
+            list.push({ ...theme, trackId: track.trackId, trackCode: track.trackCode, trackName: track.trackName });
+          });
+        });
+        return list;
+      },
+
+      getThemeById(themeId) {
+        return this.getAllThemes().find(t => t.id === themeId);
+      },
+
+      isCourseUnlocked(themeId) {
+        return this.state.unlockedCourses.includes(themeId);
+      },
+
+      isModuleAccessible(themeId, moduleObj) {
+        if (moduleObj.isFree) return true;
+        return this.isCourseUnlocked(themeId);
+      },
+
+      navigate(viewName) {
+        this.state.currentView = viewName;
+        document.querySelectorAll('.view-section').forEach(sec => sec.classList.add('hidden'));
+        const target = document.getElementById(`view-${viewName}`);
+        if (target) target.classList.remove('hidden');
+
+        // Clean nav active state
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+          const isMatch = btn.getAttribute('data-nav') === viewName;
+          btn.className = isMatch
+            ? 'nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-slate-800 transition-colors flex items-center gap-2'
+            : 'nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/50 transition-colors flex items-center gap-2';
+        });
+
+        if (viewName === 'courses') this.renderCatalog();
+        if (viewName === 'workspace') this.renderWorkspace();
+        if (viewName === 'dashboard') this.renderDashboard();
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        lucide.createIcons();
+      },
+
+      toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+      },
+
+      /* ==========================================
+         HOME PREVIEW RENDERER (CLEAN CARDS)
+         ========================================== */
+      renderHomeTracksPreview() {
+        const container = document.getElementById('home-tracks-preview');
+        if (!container) return;
+
+        container.innerHTML = COURSES_JSON_DATA.tracks.map(track => {
+          return `
+            <div class="surface-subtle rounded-2xl p-6 flex flex-col justify-between space-y-6">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-semibold text-electric-400">${track.trackCode}</span>
+                  <span class="text-slate-400">${track.themes.length} Tema Studi Kasus</span>
+                </div>
+                <h3 class="text-lg font-bold text-white">${track.trackName}</h3>
+                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">${track.description}</p>
+
+                <div class="space-y-2 pt-3 border-t border-slate-800">
+                  ${track.themes.map(theme => `
+                    <button onclick="app.openModule('${theme.id}', '${theme.modules[0].moduleId}')" class="w-full text-left p-3 rounded-xl bg-navy-900 hover:bg-slate-800 border border-slate-800 transition-colors flex items-center justify-between gap-2 group">
+                      <div class="min-w-0">
+                        <div class="text-xs font-semibold text-slate-200 group-hover:text-white truncate">${theme.title}</div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">Modul 1 Gratis • ${theme.modules.length} Modul</div>
+                      </div>
+                      <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-white shrink-0"></i>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <button onclick="app.filterCourses('${track.trackId}'); app.navigate('courses')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors">
+                Lihat Kurikulum ${track.trackCode}
+              </button>
+            </div>
+          `;
+        }).join('');
+      },
+
+      /* ==========================================
+         CATALOG / LEARNING PATH RENDERER
+         ========================================== */
+      filterCourses(trackId) {
+        this.state.trackFilter = trackId;
+        document.querySelectorAll('.track-filter-btn').forEach(btn => {
+          const active = btn.getAttribute('data-track-filter') === trackId;
+          btn.className = active
+            ? 'track-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-electric-600 text-white transition-colors'
+            : 'track-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-colors';
+        });
+        this.renderCatalog();
+        lucide.createIcons();
+      },
+
+      renderCatalog() {
+        const container = document.getElementById('catalog-tracks-container');
+        if (!container) return;
+
+        const filteredTracks = this.state.trackFilter === 'ALL'
+          ? COURSES_JSON_DATA.tracks
+          : COURSES_JSON_DATA.tracks.filter(t => t.trackId === this.state.trackFilter);
+
+        container.innerHTML = filteredTracks.map(track => `
+          <div class="space-y-5">
+            <div class="pb-3 border-b border-slate-800">
+              <div class="text-xs font-semibold text-electric-400 uppercase tracking-wider">${track.trackCode}</div>
+              <h2 class="text-xl font-bold text-white mt-0.5">${track.trackName}</h2>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">${track.description}</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              ${track.themes.map(theme => {
+                const unlocked = this.isCourseUnlocked(theme.id);
+                const completedCount = theme.modules.filter(m => this.state.completedModules.includes(m.moduleId)).length;
+                const pct = Math.round((completedCount / theme.modules.length) * 100);
+
+                return `
+                  <div class="surface-subtle rounded-2xl p-6 flex flex-col justify-between space-y-5">
+                    <div class="space-y-4">
+                      <div class="flex items-center justify-between gap-2 text-xs">
+                        <span class="text-slate-400">${theme.level}</span>
+                        ${unlocked
+                          ? `<span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-semibold">Premium Aktif</span>`
+                          : `<span class="px-2.5 py-0.5 rounded bg-amber-500/15 text-amber-400 font-semibold">Rp ${theme.price.toLocaleString('id-ID')} / Tema</span>`
+                        }
+                      </div>
+
+                      <div>
+                        <h3 class="text-lg font-bold text-white">${theme.title}</h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed">${theme.subtitle}</p>
+                      </div>
+
+                      <!-- Clean Syllabus List -->
+                      <div class="divide-y divide-slate-800/80 border border-slate-800 rounded-xl overflow-hidden bg-navy-900">
+                        ${theme.modules.map(mod => {
+                          const canOpen = this.isModuleAccessible(theme.id, mod);
+                          const isDone = this.state.completedModules.includes(mod.moduleId);
+                          return `
+                            <button onclick="app.openModule('${theme.id}', '${mod.moduleId}')" class="w-full text-left p-3.5 hover:bg-slate-800/60 transition-colors flex items-center justify-between gap-3 group">
+                              <div class="flex items-center gap-3 min-w-0">
+                                <span class="w-6 h-6 rounded-md ${isDone ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-800 text-slate-400'} flex items-center justify-center text-xs font-mono shrink-0">
+                                  ${isDone ? '✓' : mod.number}
+                                </span>
+                                <div class="min-w-0">
+                                  <div class="text-xs sm:text-sm font-medium text-slate-200 group-hover:text-white truncate">${mod.title}</div>
+                                  <div class="text-[11px] text-slate-400 mt-0.5">${mod.duration}</div>
+                                </div>
+                              </div>
+                              <div class="shrink-0 flex items-center gap-2">
+                                ${mod.isFree
+                                  ? `<span class="text-[11px] font-medium px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400">Free Trial</span>`
+                                  : unlocked
+                                    ? `<span class="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-800 text-slate-300">Terbuka</span>`
+                                    : `<span class="text-[11px] font-medium px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> Premium</span>`
+                                }
+                              </div>
+                            </button>
+                          `;
+                        }).join('')}
+                      </div>
+                    </div>
+
+                    <!-- Footer Actions & Progress -->
+                    <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                      <span class="text-xs text-slate-400 font-mono">${completedCount}/${theme.modules.length} Selesai (${pct}%)</span>
+                      <div class="flex items-center gap-2">
+                        <button onclick="app.openModule('${theme.id}', '${theme.modules[0].moduleId}')" class="px-3.5 py-2 rounded-lg bg-electric-600 hover:bg-electric-500 text-white text-xs font-semibold transition-colors">
+                          Buka Modul 1
+                        </button>
+                        ${!unlocked ? `
+                          <button onclick="app.openPricingModal('${theme.id}')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 text-xs font-semibold transition-colors">
+                            Unlock Tema
+                          </button>
+                        ` : ''}
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `).join('');
+      },
+
+      /* ==========================================
+         WORKSPACE & VIDEO PLAYER RENDERER
+         ========================================== */
+      populateWorkspaceSelector() {
+        const select = document.getElementById('ws-quick-course-select');
+        if (!select) return;
+        const allThemes = this.getAllThemes();
+        select.innerHTML = allThemes.map(t => `
+          <option value="${t.id}" ${t.id === this.state.activeCourseId ? 'selected' : ''}>
+            ${t.trackCode}: ${t.title}
+          </option>
+        `).join('');
+      },
+
+      handleQuickCourseChange(themeId) {
+        const theme = this.getThemeById(themeId);
+        if (!theme) return;
+        this.state.activeCourseId = theme.id;
+        this.state.activeModuleId = theme.modules[0].moduleId;
+        this.renderWorkspace();
+        lucide.createIcons();
+      },
+
+      openModule(themeId, moduleId) {
+        this.state.activeCourseId = themeId;
+        this.state.activeModuleId = moduleId;
+        const select = document.getElementById('ws-quick-course-select');
+        if (select) select.value = themeId;
+        this.navigate('workspace');
+      },
+
+      renderWorkspace() {
+        const theme = this.getThemeById(this.state.activeCourseId);
+        if (!theme) return;
+
+        const activeModule = theme.modules.find(m => m.moduleId === this.state.activeModuleId) || theme.modules[0];
+        const unlocked = this.isCourseUnlocked(theme.id);
+        const canAccessModule = this.isModuleAccessible(theme.id, activeModule);
+        const isCompleted = this.state.completedModules.includes(activeModule.moduleId);
+
+        document.getElementById('ws-track-badge').textContent = theme.trackCode;
+        document.getElementById('ws-course-title').textContent = theme.title;
+
+        const accessStatusEl = document.getElementById('ws-course-access-status');
+        accessStatusEl.innerHTML = unlocked
+          ? `<span class="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 text-xs font-semibold">Premium Aktif</span>`
+          : `<button onclick="app.openPricingModal('${theme.id}')" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 text-xs font-semibold transition-colors">Unlock Tema (Rp 150rb)</button>`;
+
+        // Progress calculation
+        const doneCount = theme.modules.filter(m => this.state.completedModules.includes(m.moduleId)).length;
+        const pct = Math.round((doneCount / theme.modules.length) * 100);
+        document.getElementById('ws-progress-text').textContent = `${doneCount}/${theme.modules.length} (${pct}%)`;
+        document.getElementById('ws-progress-bar').style.width = `${pct}%`;
+
+        // Sidebar Module List
+        const listEl = document.getElementById('ws-module-list');
+        listEl.innerHTML = theme.modules.map(mod => {
+          const isCurrent = mod.moduleId === activeModule.moduleId;
+          const modAccessible = this.isModuleAccessible(theme.id, mod);
+          const modDone = this.state.completedModules.includes(mod.moduleId);
+
+          return `
+            <button onclick="app.openModule('${theme.id}', '${mod.moduleId}')" class="w-full text-left p-3 rounded-xl border transition-colors flex items-center justify-between gap-2.5 ${isCurrent ? 'bg-slate-800 border-electric-500 text-white' : 'bg-navy-900 border-slate-800 text-slate-300 hover:bg-slate-800/50'}">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="w-5 h-5 rounded text-xs font-mono flex items-center justify-center shrink-0 ${modDone ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-800 text-slate-400'}">
+                  ${modDone ? '✓' : mod.number}
+                </span>
+                <div class="min-w-0">
+                  <div class="text-xs font-medium truncate">${mod.title}</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">${mod.isFree ? 'Free Trial' : 'Premium'} • ${mod.duration}</div>
+                </div>
+              </div>
+              ${!modAccessible ? '<i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>' : ''}
+            </button>
+          `;
+        }).join('');
+
+        // Sidebar VIP / Starter Kit Box
+        const vipSidebar = document.getElementById('ws-vip-sidebar-card');
+        if (unlocked) {
+          vipSidebar.innerHTML = `
+            <div class="text-xs font-semibold text-white">Fasilitas Tema Premium</div>
+            <div class="space-y-2 pt-1">
+              <a href="${theme.starterKitUrl}" target="_blank" rel="noopener" class="w-full py-2 px-3 rounded-lg bg-navy-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center justify-between">
+                <span>Starter Kit Google Sheets</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400"></i>
+              </a>
+              <button onclick="app.handleVIPAction('mentor')" class="w-full py-2 px-3 rounded-lg bg-navy-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center justify-between">
+                <span>Konsultasi Mentor via WA</span>
+                <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </button>
+              <button onclick="app.openCertificateModal('${theme.id}')" class="w-full py-2 px-3 rounded-lg bg-navy-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center justify-between">
+                <span>Download E-Sertifikat</span>
+                <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
+              </button>
+            </div>
+          `;
+        } else {
+          vipSidebar.innerHTML = `
+            <div class="text-xs font-semibold text-white">Akses Penuh Tema Ini</div>
+            <p class="text-xs text-slate-400 leading-relaxed">Buka Modul 2 & 3, Starter Kit Google Sheets, Konsultasi Mentor 1-on-1, dan E-Sertifikat.</p>
+            <button onclick="app.openPricingModal('${theme.id}')" class="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-semibold text-xs transition-colors">
+              Beli Tema Ini (Rp 150.000)
+            </button>
+          `;
+        }
+
+        // Active Module Info
+        const badgeEl = document.getElementById('ws-active-module-badge');
+        if (activeModule.isFree) {
+          badgeEl.className = 'text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400';
+          badgeEl.textContent = 'FREE TRIAL';
+        } else {
+          badgeEl.className = 'text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-500/15 text-amber-400';
+          badgeEl.textContent = unlocked ? 'PREMIUM TERBUKA' : 'PREMIUM';
+        }
+        document.getElementById('ws-active-module-duration').textContent = activeModule.duration;
+        document.getElementById('ws-active-module-title').textContent = `Modul ${activeModule.number}: ${activeModule.title}`;
+
+        // Complete Button
+        const completeBtn = document.getElementById('ws-complete-btn');
+        if (!canAccessModule) {
+          completeBtn.className = 'px-4 py-2 rounded-lg font-medium text-xs bg-slate-800 text-slate-500 cursor-not-allowed';
+          completeBtn.textContent = 'Modul Terkunci';
+        } else if (isCompleted) {
+          completeBtn.className = 'px-4 py-2 rounded-lg font-semibold text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/30';
+          completeBtn.textContent = '✓ Selesai Dipelajari';
+        } else {
+          completeBtn.className = 'px-4 py-2 rounded-lg font-semibold text-xs bg-electric-600 hover:bg-electric-500 text-white transition-colors';
+          completeBtn.textContent = 'Tandai Selesai';
+        }
+
+        // Video Player OR Clean Lock Banner
+        const playerContainer = document.getElementById('ws-player-container');
+        const tabsWrapper = document.getElementById('ws-tabs-wrapper');
+
+        if (canAccessModule) {
+          playerContainer.innerHTML = `
+            <div class="aspect-video w-full bg-navy-950 flex flex-col justify-between p-6 sm:p-8">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>Video Tutorial • Modul ${activeModule.number}</span>
+                <span class="font-mono">${activeModule.filename}</span>
+              </div>
+
+              <div class="my-auto text-center space-y-3 max-w-md mx-auto">
+                <div class="w-14 h-14 rounded-full bg-electric-600/20 border border-electric-500/40 text-electric-400 flex items-center justify-center mx-auto">
+                  <i data-lucide="play" class="w-6 h-6 fill-current ml-0.5"></i>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-white">${activeModule.title}</h3>
+                <p class="text-xs text-slate-400">
+                  Pelajari alur pembuatan pada video ini, lalu salin kode di bawah untuk langsung mempraktikkannya.
+                </p>
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] text-slate-500 pt-3 border-t border-slate-900">
+                <span>YouTube / Loom Embed Container</span>
+                <span>1080p HD</span>
+              </div>
+            </div>
+          `;
+          tabsWrapper.classList.remove('opacity-50', 'pointer-events-none');
+          document.getElementById('ws-code-filename').textContent = activeModule.filename;
+          document.getElementById('ws-code-content').textContent = activeModule.codeSnippet;
+          document.getElementById('ws-prompt-content').textContent = activeModule.aiPrompt;
+          document.getElementById('ws-guide-content').innerHTML = activeModule.steps.map((st, idx) => `
+            <div class="p-3 rounded-xl bg-navy-950 border border-slate-800 flex items-start gap-3 text-xs sm:text-sm">
+              <span class="font-mono text-xs text-slate-400 mt-0.5">${idx + 1}.</span>
+              <span>${st}</span>
+            </div>
+          `).join('');
+        } else {
+          playerContainer.innerHTML = `
+            <div class="p-8 sm:p-10 bg-navy-950 text-center space-y-5">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center mx-auto">
+                <i data-lucide="lock" class="w-5 h-5"></i>
+              </div>
+              <div class="space-y-1.5 max-w-md mx-auto">
+                <div class="text-xs font-semibold text-amber-400 uppercase tracking-wider">Modul Premium</div>
+                <h3 class="text-lg font-bold text-white">${activeModule.title}</h3>
+                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Buka akses penuh tema <strong>${theme.title}</strong> (Rp 150.000) untuk menonton video integrasi Google Apps Script, menyalin source code, dan berkonsultasi 1-on-1 dengan mentor.
+                </p>
+              </div>
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 max-w-sm mx-auto pt-1">
+                <button onclick="app.buyCourseViaWA('${theme.title}')" class="w-full sm:flex-1 py-2.5 px-4 rounded-xl font-semibold text-xs bg-amber-500 hover:bg-amber-400 text-navy-950 transition-colors">
+                  Beli Tema Ini (Rp 150.000)
+                </button>
+                <button onclick="app.unlockCourse('${theme.id}')" class="w-full sm:w-auto py-2.5 px-4 rounded-xl font-medium text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">
+                  Simulasi Unlock
+                </button>
+              </div>
+            </div>
+          `;
+          tabsWrapper.classList.add('opacity-50', 'pointer-events-none');
+          document.getElementById('ws-code-filename').textContent = 'Terkunci (Premium)';
+          document.getElementById('ws-code-content').textContent = '// Unlock tema pembelajaran ini untuk mengakses source code modul lanjutan.';
+        }
+
+        lucide.createIcons();
+      },
+
+      switchWorkspaceTab(tabName) {
+        this.state.activeWorkspaceTab = tabName;
+        document.querySelectorAll('.ws-tab-content').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`ws-tab-${tabName}`).classList.remove('hidden');
+
+        document.querySelectorAll('.ws-tab-btn').forEach(btn => {
+          const active = btn.getAttribute('data-ws-tab') === tabName;
+          btn.className = active
+            ? 'ws-tab-btn px-4 py-2.5 text-xs font-semibold border-b-2 border-electric-500 text-white flex items-center gap-2 shrink-0'
+            : 'ws-tab-btn px-4 py-2.5 text-xs font-medium border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2 shrink-0';
+        });
+      },
+
+      toggleCurrentModuleComplete() {
+        const theme = this.getThemeById(this.state.activeCourseId);
+        if (!theme) return;
+        const activeModule = theme.modules.find(m => m.moduleId === this.state.activeModuleId);
+        if (!activeModule) return;
+
+        if (!this.isModuleAccessible(theme.id, activeModule)) {
+          this.openPricingModal(theme.id);
+          return;
+        }
+
+        const idx = this.state.completedModules.indexOf(activeModule.moduleId);
+        if (idx === -1) {
+          this.state.completedModules.push(activeModule.moduleId);
+          this.showToast(`Modul "${activeModule.title}" selesai dipelajari.`, 'emerald');
+        } else {
+          this.state.completedModules.splice(idx, 1);
+          this.showToast(`Status selesai dibatalkan.`, 'slate');
+        }
+
+        this.saveLocalStorage();
+        this.renderWorkspace();
+        this.updateGlobalProgressBadges();
+      },
+
+      copyActiveCode() {
+        const code = document.getElementById('ws-code-content').textContent;
+        navigator.clipboard.writeText(code);
+        this.showToast('Kode berhasil disalin ke clipboard.', 'electric');
+      },
+
+      copyActivePrompt() {
+        const promptText = document.getElementById('ws-prompt-content').textContent;
+        navigator.clipboard.writeText(promptText);
+        this.showToast('Prompt AI berhasil disalin.', 'amber');
+      },
+
+      /* ==========================================
+         USER DASHBOARD & VIP CERTIFICATE RENDERER
+         ========================================== */
+      renderDashboard() {
+        const allThemes = this.getAllThemes();
+        const allModulesCount = allThemes.reduce((acc, t) => acc + t.modules.length, 0);
+        const completedCount = this.state.completedModules.length;
+        const totalPct = Math.round((completedCount / allModulesCount) * 100);
+
+        document.getElementById('dash-student-name-display').textContent = this.state.studentName;
+        const nameInput = document.getElementById('dash-name-input');
+        if (nameInput && !nameInput.value) nameInput.value = this.state.studentName;
+
+        const initials = this.state.studentName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        document.getElementById('dash-avatar-initials').textContent = initials || 'KR';
+
+        document.getElementById('dash-stat-percent').textContent = `${totalPct}%`;
+        document.getElementById('dash-stat-modules').textContent = `${completedCount}/${allModulesCount} modul selesai`;
+        document.getElementById('dash-stat-unlocked').textContent = `${this.state.unlockedCourses.length} / ${allThemes.length}`;
+        document.getElementById('dash-stat-certs').textContent = `${this.state.unlockedCourses.length}`;
+
+        const vipDesc = document.getElementById('dash-vip-status-desc');
+        if (this.state.unlockedCourses.length > 0) {
+          vipDesc.innerHTML = `<span class="text-emerald-400 font-medium">Akses Premium Aktif (${this.state.unlockedCourses.length} Tema).</span> Gunakan tombol di bawah untuk menghubungi mentor, bergabung ke grup WA, atau mengunduh E-Sertifikat.`;
+        } else {
+          vipDesc.textContent = 'Buka minimal 1 tema Premium (atau klik tombol simulasi di kanan) untuk mengakses konsultasi mentor, grup VIP, dan sertifikat.';
+        }
+
+        const grid = document.getElementById('dash-courses-grid');
+        grid.innerHTML = allThemes.map(theme => {
+          const unlocked = this.isCourseUnlocked(theme.id);
+          const doneMods = theme.modules.filter(m => this.state.completedModules.includes(m.moduleId)).length;
+          const pct = Math.round((doneMods / theme.modules.length) * 100);
+
+          return `
+            <div class="surface-subtle rounded-xl p-5 flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-400">${theme.trackCode}</span>
+                  ${unlocked
+                    ? `<span class="text-emerald-400 font-semibold">Premium Aktif</span>`
+                    : `<span class="text-slate-400">Free Trial</span>`
+                  }
+                </div>
+                <h3 class="text-base font-bold text-white">${theme.title}</h3>
+                <div class="space-y-1 pt-1">
+                  <div class="flex justify-between text-xs text-slate-400">
+                    <span>Progress</span>
+                    <span class="font-mono text-slate-200">${doneMods}/${theme.modules.length} (${pct}%)</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-navy-950 rounded-full overflow-hidden">
+                    <div class="h-full bg-electric-500 transition-all duration-300" style="width: ${pct}%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <button onclick="app.openModule('${theme.id}', '${theme.modules[0].moduleId}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-medium transition-colors">
+                  Lanjutkan
+                </button>
+                <div class="flex items-center gap-2">
+                  <a href="${theme.starterKitUrl}" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-lg bg-navy-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-medium">
+                    Starter Kit
+                  </a>
+                  ${unlocked
+                    ? `<button onclick="app.openCertificateModal('${theme.id}')" class="px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 text-xs font-semibold">
+                         Sertifikat
+                       </button>`
+                    : `<button onclick="app.openPricingModal('${theme.id}')" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 text-xs font-semibold">
+                         Unlock
+                       </button>`
+                  }
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        lucide.createIcons();
+      },
+
+      updateGlobalProgressBadges() {
+        const allThemes = this.getAllThemes();
+        const totalMods = allThemes.reduce((acc, t) => acc + t.modules.length, 0);
+        const pct = Math.round((this.state.completedModules.length / totalMods) * 100);
+        const navBadge = document.getElementById('nav-progress-badge');
+        const mobBadge = document.getElementById('mobile-progress-badge');
+        if (navBadge) navBadge.textContent = `${pct}%`;
+        if (mobBadge) mobBadge.textContent = `${pct}%`;
+      },
+
+      /* ==========================================
+         MONETIZATION, VIP UNLOCK & CERTIFICATE
+         ========================================== */
+      openPricingModal(themeId = null) {
+        this.state.selectedPricingCourseId = themeId || this.state.activeCourseId;
+        const theme = this.getThemeById(this.state.selectedPricingCourseId);
+        const titleEl = document.getElementById('modal-course-title');
+        if (theme && titleEl) {
+          titleEl.textContent = theme.title;
+        }
+        const modal = document.getElementById('pricing-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        lucide.createIcons();
+      },
+
+      closePricingModal() {
+        const modal = document.getElementById('pricing-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      },
+
+      buyCourseViaWA(customTitle = null) {
+        const theme = this.getThemeById(this.state.selectedPricingCourseId);
+        const namaTema = customTitle || (theme ? theme.title : 'Full Tema Pembelajaran Kreasi Coding Academy');
+        const pesan = `Halo Admin Kreasi Coding Academy (Kreasi Rupa), saya ingin membeli akses PREMIUM (Rp 150.000) untuk tema: ${namaTema}. Mohon info pembayarannya.`;
+        const waUrl = `https://wa.me/${COURSES_JSON_DATA.whatsappAdmin}?text=${encodeURIComponent(pesan)}`;
+        window.open(waUrl, '_blank');
+      },
+
+      unlockCourse(themeId) {
+        if (!this.state.unlockedCourses.includes(themeId)) {
+          this.state.unlockedCourses.push(themeId);
+          this.saveLocalStorage();
+        }
+        const theme = this.getThemeById(themeId);
+        this.closePricingModal();
+        this.renderWorkspace();
+        this.renderCatalog();
+        this.renderDashboard();
+        this.showToast(`Tema "${theme ? theme.title : themeId}" berhasil dibuka.`, 'amber');
+      },
+
+      unlockSelectedCourseDemo() {
+        const targetId = this.state.selectedPricingCourseId || 'vibebiz-pos';
+        this.unlockCourse(targetId);
+      },
+
+      unlockAllDemo() {
+        const allIds = this.getAllThemes().map(t => t.id);
+        this.state.unlockedCourses = allIds;
+        this.saveLocalStorage();
+        this.renderCatalog();
+        this.renderWorkspace();
+        this.renderDashboard();
+        this.showToast('Semua 7 Tema Pembelajaran Premium telah diaktifkan.', 'amber');
+      },
+
+      saveStudentNameInline() {
+        const input = document.getElementById('dash-name-input');
+        if (input && input.value.trim().length > 1) {
+          this.state.studentName = input.value.trim();
+          this.saveLocalStorage();
+          this.renderDashboard();
+          this.showToast(`Nama sertifikat disimpan: ${this.state.studentName}`, 'emerald');
+        }
+      },
+
+      applyVoucherInline() {
+        const input = document.getElementById('dash-voucher-input');
+        const code = input ? input.value.trim().toUpperCase() : '';
+        if (code === 'KREASI-VIP' || code === 'VIP') {
+          this.unlockAllDemo();
+          if (input) input.value = '';
+        } else {
+          this.showToast('Gunakan kode KREASI-VIP untuk simulasi membuka semua tema.', 'amber');
+        }
+      },
+
+      handleVIPAction(actionType) {
+        if (this.state.unlockedCourses.length === 0) {
+          this.showToast('Aktifkan minimal 1 tema Premium atau klik tombol Simulasi VIP terlebih dahulu.', 'amber');
+          this.openPricingModal();
+          return;
+        }
+
+        if (actionType === 'mentor') {
+          const msg = `Halo Mentor Kreasi Coding Academy, saya ${this.state.studentName} ingin berkonsultasi 1-on-1 mengenai materi aplikasi.`;
+          window.open(`https://wa.me/${COURSES_JSON_DATA.whatsappAdmin}?text=${encodeURIComponent(msg)}`, '_blank');
+        } else if (actionType === 'community') {
+          window.open(COURSES_JSON_DATA.vipChannelUrl, '_blank');
+        } else if (actionType === 'certificate') {
+          const firstUnlocked = this.state.unlockedCourses[0] || 'vibebiz-pos';
+          this.openCertificateModal(firstUnlocked);
+        }
+      },
+
+      openCertificateModal(themeId) {
+        const theme = this.getThemeById(themeId) || this.getAllThemes()[0];
+        document.getElementById('cert-student-name').textContent = this.state.studentName;
+        document.getElementById('cert-course-name').textContent = theme.title;
+        document.getElementById('cert-serial-number').textContent = `No. Verifikasi: KCA-2026-${theme.id.toUpperCase()}`;
+
+        const modal = document.getElementById('certificate-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        lucide.createIcons();
+      },
+
+      closeCertificateModal() {
+        const modal = document.getElementById('certificate-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      },
+
+      resetProgress() {
+        this.state.completedModules = [];
+        this.state.unlockedCourses = [];
+        this.saveLocalStorage();
+        this.renderCatalog();
+        this.renderWorkspace();
+        this.renderDashboard();
+        this.updateGlobalProgressBadges();
+        this.showToast('Data progress belajar telah di-reset.', 'slate');
+      },
+
+      /* ==========================================
+         NETLIFY JSON EXPORTER & FORM HANDLER
+         ========================================== */
+      renderNetlifyJSONPreview() {
+        const pre = document.getElementById('netlify-json-preview');
+        if (!pre) return;
+        pre.textContent = JSON.stringify(COURSES_JSON_DATA, null, 2);
+      },
+
+      downloadCoursesJSON() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(COURSES_JSON_DATA, null, 2));
+        const dlAnchor = document.createElement('a');
+        dlAnchor.setAttribute("href", dataStr);
+        dlAnchor.setAttribute("download", "courses.json");
+        document.body.appendChild(dlAnchor);
+        dlAnchor.click();
+        dlAnchor.remove();
+        this.showToast('📦 File courses.json berhasil diunduh!', 'electric');
+      },
+
+      copyCoursesJSON() {
+        this.copyToClipboard(JSON.stringify(COURSES_JSON_DATA, null, 2));
+        this.showToast('Seluruh isi courses.json berhasil disalin ke clipboard.', 'emerald');
+      },
+
+      updateGitRepoPreview() {
+        const userEl = document.getElementById('git-username-input');
+        const repoEl = document.getElementById('git-repo-input');
+        const codeEl = document.getElementById('git-init-commands');
+        if (!userEl || !repoEl || !codeEl) return;
+
+        const username = (userEl.value || 'username-kamu').trim();
+        const repo = (repoEl.value || 'kreasi-coding-academy').trim();
+
+        codeEl.textContent = `# 1. Masuk ke folder project di Terminal / VS Code
+cd ${repo}
+
+# 2. Inisialisasi Git & tambahkan seluruh file
+git init
+git add .
+
+# 3. Buat commit pertama
+git commit -m "Initial commit: Kreasi Coding Academy"
+
+# 4. Pastikan branch utama bernama main
+git branch -M main
+
+# 5. Hubungkan ke repository GitHub kamu
+git remote add origin https://github.com/${username}/${repo}.git
+
+# 6. Push kode ke GitHub
+git push -u origin main`;
+      },
+
+      copyGitInitCommands() {
+        const codeEl = document.getElementById('git-init-commands');
+        if (!codeEl) return;
+        this.copyToClipboard(codeEl.textContent);
+        this.showToast('Perintah Git Push berhasil disalin.', 'electric');
+      },
+
+      copyGitUpdateCommands() {
+        const codeEl = document.getElementById('git-update-commands');
+        if (!codeEl) return;
+        this.copyToClipboard(codeEl.textContent);
+        this.showToast('Perintah Git Update berhasil disalin.', 'emerald');
+      },
+
+      copyToClipboard(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {
+          if (navigator.clipboard) navigator.clipboard.writeText(text);
+        }
+        document.body.removeChild(textarea);
+      },
+
+      handleLeadSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const nama = formData.get('nama');
+        const track = formData.get('track');
+        this.showToast(`🚀 Terima kasih ${nama}! Data konsultasimu untuk ${track} telah diterima.`, 'emerald');
+        form.reset();
+      },
+
+      showToast(message, color = 'electric') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        const borderColors = {
+          electric: 'border-electric-500 bg-navy-900 text-white',
+          emerald: 'border-emerald-500 bg-navy-900 text-emerald-300',
+          amber: 'border-amber-500 bg-navy-900 text-amber-300',
+          rose: 'border-rose-500 bg-navy-900 text-rose-300',
+          slate: 'border-slate-600 bg-navy-900 text-slate-200'
+        };
+        toast.className = `px-4 py-3 rounded-2xl border ${borderColors[color] || borderColors.electric} shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all duration-300`;
+        toast.innerHTML = `<span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => toast.remove(), 300);
+        }, 3400);
+      }
+    };
+
+    // Jalankan Aplikasi saat DOM siap
+    window.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body>
+</html>
